@@ -131,4 +131,3 @@ SITE_ID = 3
 # Redirect URLs
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
