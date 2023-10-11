@@ -19,6 +19,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: ./babylon
 
       - name: Build Angular App
-        run: npm run build -- --prod
+        run: npm install npm run build -- --prod
+        working-directory: ./babylon
