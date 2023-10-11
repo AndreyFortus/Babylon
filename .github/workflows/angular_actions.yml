@@ -15,12 +15,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install Dependencies
         run: npm install
         working-directory: ./babylon
 
       - name: Build Angular App
-        run: npm run build
+        run: npm run build -- --prod
         working-directory: ./babylon
