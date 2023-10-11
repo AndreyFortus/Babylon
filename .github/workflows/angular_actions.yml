@@ -21,3 +21,4 @@ jobs:
 
       - name: Build Angular App
         run: npm run build -- --prod
+        working-directory: ./babylon
