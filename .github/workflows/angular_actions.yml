@@ -22,5 +22,5 @@ jobs:
         working-directory: ./babylon
 
       - name: Build Angular App
-        run: npm run build:prod
+        run: npm run build
         working-directory: ./babylon
