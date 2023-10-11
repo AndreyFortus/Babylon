@@ -1,0 +1,39 @@
+.spacer {
+    flex: 1;
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    gap: 42px;
+    align-items: center;
+    background-color: #613010;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    /* Плавна зміна кольору*/
+}
+
+a:last-child {
+    margin-right: 42px;
+}
+
+header a:hover {
+    color: #faa66e;
+    /*кольор посилань при наведенні*/
+}
+
+span {
+    font-size: x-large;
+    margin-left: 84px;
+}

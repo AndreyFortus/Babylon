@@ -1,0 +1,20 @@
+footer {
+    text-align: center;
+    top: 0;
+    padding: 24px;
+    background-color: #613010;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+    margin: 0; 
+    margin-right: 0;
+}
+
+footer a {
+    display: flex;
+    align-items: center;
+}
