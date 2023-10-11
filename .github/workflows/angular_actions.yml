@@ -18,6 +18,8 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./babylon
 
     - name: Build
       run: npm run build:prod
+      working-directory: ./babylon
