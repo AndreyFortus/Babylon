@@ -14,6 +14,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'babylon_app',
+    'lessons',
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -25,6 +26,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
