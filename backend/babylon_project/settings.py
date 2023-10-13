@@ -10,6 +10,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'babylon_app',
+    'accounts',
+    
     'lessons',
     'django.contrib.sites',
     'django.contrib.admin',
