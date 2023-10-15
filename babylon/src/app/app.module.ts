@@ -8,6 +8,8 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatHumanCardComponent } from './chat-human-card/chat-human-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { IntroComponent } from './intro/intro.component';
+import { ChatApiService } from './chat-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import { IntroComponent } from './intro/intro.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ChatApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
