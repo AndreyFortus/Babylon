@@ -19,10 +19,5 @@
 .chat-box {
   position: relative;
   float: right;
-  margin-top: 20px;
-  /* Добавьте верхний отступ, чтобы отделить чат-бокс от хедера */
-  padding-top: 54px;
-  /* Добавьте отступ вокруг чат-бокса по желанию */
   width: 25%;
- 
 }
