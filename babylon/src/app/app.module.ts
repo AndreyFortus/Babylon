@@ -8,6 +8,8 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatHumanCardComponent } from './chat-human-card/chat-human-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { IntroComponent } from './intro/intro.component';
+import { ChatApiService } from './chat-api.service';
+import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LessonsPageComponent } from './lessons-page/lessons-page.component';
 import { LessonsPageContentComponent } from './lessons-page-content/lessons-page-content.component';
@@ -32,9 +34,10 @@ import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/les
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ChatApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
