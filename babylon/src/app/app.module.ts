@@ -8,6 +8,12 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatHumanCardComponent } from './chat-human-card/chat-human-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { IntroComponent } from './intro/intro.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { LessonsPageComponent } from './lessons-page/lessons-page.component';
+import { LessonsPageContentComponent } from './lessons-page-content/lessons-page-content.component';
+import { LessonComponent } from './lesson/lesson.component';
+import { LessonTheoryComponent } from './lesson-theory/lesson-theory.component';
+import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/lesson-start-quiz-section.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +22,13 @@ import { IntroComponent } from './intro/intro.component';
     ChatComponent,
     ChatHumanCardComponent,
     FooterComponent,
-    IntroComponent
+    IntroComponent,
+    HomePageComponent,
+    LessonsPageComponent,
+    LessonsPageContentComponent,
+    LessonComponent,
+    LessonTheoryComponent,
+    LessonStartQuizSectionComponent
   ],
   imports: [
     BrowserModule,
