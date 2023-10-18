@@ -37,3 +37,14 @@ span {
     font-size: x-large;
     margin-left: 84px;
 }
+
+.google {
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    max-height: 80%;
+}
+
+.google img {
+    object-fit: scale-down;
+}

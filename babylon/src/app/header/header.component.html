@@ -9,13 +9,10 @@
             Lessons
         </a>
         <div class="spacer"></div>
-        <a aria-label="Log in" target="_blank" rel="noopener" href="#"
-            title="YouTube">
-            Log in
-        </a>
-        <a aria-label="Sign up" target="_blank" rel="noopener" href="#"
-            title="Sign up">
-            Sign up
-        </a>
+        <div class="google">
+            <asl-google-signin-button *ngIf="!loggedIn" type='standard' size='large' text="signin_with"></asl-google-signin-button>
+            <p *ngIf="loggedIn">{{user.name}}</p>
+            <img src="{{ user.photoUrl }} " referrerpolicy="no-referrer">
+        </div>
     </div>
 </header>
