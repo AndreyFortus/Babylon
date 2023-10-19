@@ -12,7 +12,8 @@
         <div class="google">
             <asl-google-signin-button *ngIf="!loggedIn" type='standard' size='large' text="signin_with"></asl-google-signin-button>
             <p *ngIf="loggedIn">{{user.name}}</p>
-            <img src="{{ user.photoUrl }} " referrerpolicy="no-referrer">
+            <img *ngIf="loggedIn" src="{{ user.photoUrl }} " referrerpolicy="no-referrer">
+            <button *ngIf="loggedIn" (click)="signOut()" class="signout"></button>
         </div>
     </div>
 </header>
