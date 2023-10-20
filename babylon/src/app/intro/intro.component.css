@@ -1,8 +1,7 @@
 .content {
   display: flex;
-  margin: 68px auto 32px;
   padding: 0 16px;
-  max-width: 960px;
+  /* max-width: 80vw; */
   flex-direction: column;
 }
 

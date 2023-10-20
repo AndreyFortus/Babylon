@@ -24,6 +24,8 @@
 
 .human-info {
     padding-left: 20px;
+    max-width: 70%;
+    overflow: hidden;
 }
 
 p {

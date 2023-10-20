@@ -45,5 +45,5 @@ input {
 .main {
     display: flex;
     flex-direction: column;
-    max-height: 95vh;
+    /* max-height: 95vh; */
 }
