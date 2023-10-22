@@ -1,6 +1,6 @@
-import { SocialAuthService, GoogleLoginProvider, FacebookLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
+import { SocialAuthService} from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { GoogleAuthService } from '../google-auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,52 +9,31 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit {
 
-  user: SocialUser = new SocialUser;
+  username: string = ''
+  photoUrl: string = ''
   loggedIn: boolean = false;
-  accessToken = ''; 
 
-  constructor(private authService: SocialAuthService, private http: HttpClient) { }
+  constructor(private authService: SocialAuthService, private googleService: GoogleAuthService) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      this.getAccessToken();
-      localStorage.setItem('username', user.name);
-      localStorage.setItem('photourl', user.photoUrl);
+      this.googleService.setUser(user)
+      this.googleService.sendToken()
+      this.googleService.name$.subscribe(name => {
+        this.username = name;
+      });
+      this.googleService.photoUrl$.subscribe(photoUrl => {
+        this.photoUrl = photoUrl;
+      });
+      this.googleService.loggedIn$.subscribe(loggedIn => {
+        this.loggedIn = loggedIn;
+      })
     });
 
   }
 
-  getAccessToken(): void {
-    this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken => {this.accessToken = accessToken;
-      this.sendAccessTokenToServer(accessToken);
-      localStorage.setItem('token', accessToken);})
-      .catch(error => {
-        console.error('Error getting access token: ', error);
-      });
-  }
-
-  sendAccessTokenToServer(accessToken: string): void {
-    const url = 'http://127.0.0.1:8000/auth/google/';
-  
-    // Отправка accessToken на сервер
-    this.http.post(url, { google_token: accessToken }).subscribe(
-      (response: any) => {
-        // Обработка успешного ответа
-        const token = response.token;
-        console.log(token);
-        // Далее можно что-то сделать с полученным токеном, например, сохранить его в локальном хранилище или в куках
-      },
-      (error: any) => {
-        // Обработка ошибки
-        console.error('Ошибка при отправке запроса:', error);
-      }
-    );
-  }
-
   signOut(): void {
-    this.authService.signOut();
+    this.googleService.signOut();
   }
 
 }
