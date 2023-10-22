@@ -1,15 +1,15 @@
 <!-- Header -->
+<div class="header">
+  <app-header></app-header>
+</div>
 <div class="content">
-  <div class="header">
-    <app-header></app-header>
+  <div class="main">
+    <router-outlet></router-outlet>
   </div>
   <div class="chat-box">
     <div class="chats"><app-chat></app-chat></div>
   </div>
-  <div class="main">
-  </div>
-  </div>
-  <router-outlet></router-outlet>
-  <div class="footer">
-    <app-footer></app-footer>
-  </div>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>

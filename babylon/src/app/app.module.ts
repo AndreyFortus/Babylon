@@ -16,6 +16,7 @@ import { LessonsPageContentComponent } from './lessons-page-content/lessons-page
 import { LessonComponent } from './lesson/lesson.component';
 import { LessonTheoryComponent } from './lesson-theory/lesson-theory.component';
 import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/lesson-start-quiz-section.component';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,33 @@ import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/les
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
   ],
-  providers: [ChatApiService],
+  providers: [ChatApiService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '96564374042-vavmi8r65snddk6j3m0sk7f1v3r5ob9u.apps.googleusercontent.com',
+              // '883088030860-7stqkkl4ipd974v4lp5pturmir8p0qfi.apps.googleusercontent.com',
+              {
+                scopes: 'openid',
+              }
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
