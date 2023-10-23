@@ -43,7 +43,8 @@
 .content-lessons {
   display: flex;
   flex-direction: row;
-  background: #EFEFEF;
+  background: linear-gradient(90deg, rgba(79,37,28,0.6) 0%, rgba(79,37,28,0.6) 100%), url('/assets/img/lessons/lessons_bg.jpg') no-repeat;
+  background-size: cover;
 }
 
 .main {
