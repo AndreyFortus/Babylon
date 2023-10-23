@@ -1,31 +1,21 @@
 .slider-container {
-    width: 800px; 
     overflow: hidden;
-    position: relative;
-    justify-content: center; 
-    align-items: center; 
-    margin-left: 100px;
-    margin-right: 100px;
+    width: 70vw;
   }
   
   .slider {
     display: flex;
-    width: 1600px; /* Общая ширина слайдов (2 слайда по 600px) */
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(0); /* Начальное значение, чтобы показать только первый слайд */
-    margin: 0 auto;
   }
     
     
   .slide {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); 
-      grid-gap: 10px; 
-      width: 800px; 
-      height: 550px;
-      align-items: center;
-      justify-content: center;
-      
+      grid-template-columns: repeat(4, 1fr); 
+      grid-gap: 10px;
+      width: 200%;
+      height: 100%; 
+      transition: transform 1s ease-in-out;
+      transform: translateX(0);      
   }
   
   h1 {
@@ -33,9 +23,14 @@
   }
   .lesson {
       box-sizing: border-box;
-      padding: 10px;
+      /* margin: 0;
+      padding: 0; */
       text-align: center; 
       font-family: 'Montserrat', sans-serif;
+  }
+
+  img {
+    width: 250px;
   }
   
   button {
@@ -54,7 +49,8 @@
   .navigation-buttons {
     position: relative;
     text-align: center;
-    margin-top: 10px; 
+    margin-top: 10px;
+    margin-bottom: 10px; 
   }
   
   #prevButton, #nextButton {

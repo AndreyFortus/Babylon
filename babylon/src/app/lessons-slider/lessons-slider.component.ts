@@ -10,7 +10,7 @@ export class LessonsSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const slider = document.querySelector('.slider') as HTMLElement;
+    const slider = document.querySelector('.slide') as HTMLElement;
     const prevButton = document.getElementById('prevButton') as HTMLElement;
     const nextButton = document.getElementById('nextButton') as HTMLElement;
 
@@ -25,7 +25,7 @@ export class LessonsSliderComponent implements OnInit {
 
     function moveSlide(offset: number) {
       slideIndex += offset;
-      slider.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
+      slider.style.transform = `translateX(-${slideWidth * 2 * slideIndex}px)`;
     }
 
     prevButton.addEventListener('click', () => {
