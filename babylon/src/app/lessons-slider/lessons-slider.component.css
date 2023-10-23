@@ -1,0 +1,64 @@
+.slider-container {
+    width: 800px; 
+    overflow: hidden;
+    position: relative;
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .slider {
+    display: flex;
+    width: 1600px; /* Общая ширина слайдов (2 слайда по 600px) */
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0); /* Начальное значение, чтобы показать только первый слайд */
+    margin: 0 auto;
+  }
+    
+    
+  .slide {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
+      grid-gap: 10px; 
+      width: 800px; 
+      height: 650px;
+      align-items: center;
+      justify-content: center;
+      
+  }
+  
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .lesson {
+      box-sizing: border-box;
+      padding: 10px;
+      text-align: center; 
+      font-family: 'Montserrat', sans-serif;
+  }
+  
+  button {
+      margin: 5px;
+     
+  }
+  
+  .start-lesson-button {
+    margin: 10px;
+    border: solid 1px;
+    width: 260px; 
+    height: 48px; 
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .navigation-buttons {
+    position: relative;
+    text-align: center;
+    margin-top: 10px; 
+  }
+  
+  #prevButton, #nextButton {
+    margin: 0 10px;
+    border: solid 1px;
+    width: 100px; 
+    height: 48px;
+    font-family: 'Montserrat', sans-serif;
+  }
