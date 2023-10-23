@@ -20,7 +20,7 @@
       grid-template-columns: repeat(2, 1fr); 
       grid-gap: 10px; 
       width: 800px; 
-      height: 650px;
+      height: 550px;
       align-items: center;
       justify-content: center;
       
