@@ -21,6 +21,7 @@ time, mark, audio, video {
 
 li {
     list-style-type: none;
+    padding-bottom: 5px;
 }
 
 .chat {
@@ -31,11 +32,16 @@ li {
 
 input {
     border-radius: 20px;
-    border: 1px solid black;
+    border: 2px solid rgba(255, 255, 255, 0.5);
     background: url('https://cdn-icons-png.flaticon.com/256/3917/3917132.png') no-repeat 5px;
     background-size: 3vh;
     padding-left: 50px;
     height: 5vh;
+}
+
+input:hover {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url('https://cdn-icons-png.flaticon.com/256/3917/3917132.png') no-repeat 5px;
+    background-size: 3vh;
 }
 
 .search-bar {

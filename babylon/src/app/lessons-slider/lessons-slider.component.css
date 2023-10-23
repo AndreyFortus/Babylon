@@ -47,6 +47,7 @@
   }
   
   .navigation-buttons {
+    width: 70vw;
     position: relative;
     text-align: center;
     margin-top: 10px;

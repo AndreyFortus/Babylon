@@ -28,9 +28,22 @@
   height: 60px;
 }
 
-.content {
+/* .content {
   display: flex;
   flex-direction: row;
+} */
+
+.content-home {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, rgba(79,37,28,0.6) 0%, rgba(79,37,28,0.6) 100%), url('/assets/img/home-page/bg.jpg') no-repeat;
+  background-size: cover;
+}
+
+.content-lessons {
+  display: flex;
+  flex-direction: row;
+  background: #EFEFEF;
 }
 
 .main {
