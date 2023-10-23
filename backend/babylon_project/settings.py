@@ -12,7 +12,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'babylon_app',
     'accounts',
-    
     'lessons',
     'django.contrib.sites',
     'django.contrib.admin',
@@ -126,9 +125,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SECRET_GOOGLE_KEY")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'social_core.backends.google.GoogleOAuth2',
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',

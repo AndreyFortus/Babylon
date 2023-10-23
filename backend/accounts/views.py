@@ -3,7 +3,7 @@ import requests
 import string
 
 from django.contrib.auth.models import User  # Import right User model
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics, status, permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
@@ -14,10 +14,12 @@ from .models import UserProfile
 from .serializers import UserSerializer, UserProfileSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
+class UserDetailView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 
 class GoogleAuthAPIView(APIView):
