@@ -125,10 +125,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SECRET_GOOGLE_ID")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SECRET_GOOGLE_KEY")
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'social_core.backends.google.GoogleOAuth2',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'social_core.backends.google.GoogleOAuth2',
         'rest_framework.authentication.TokenAuthentication',
-    ),
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
@@ -138,4 +139,3 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Angular host
 ]
-

@@ -1,29 +1,23 @@
 import random
-import string
 import requests
-from django.contrib.auth.models import User  # Импортируйте модель User из правильного места
+import string
 
-from .models import UserProfile
-from .serializers import UserSerializer
-
-from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework import status
+from django.contrib.auth.models import User  # Import right User model
+from rest_framework import viewsets, generics, status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from .models import UserProfile
+from .serializers import UserSerializer, UserProfileSerializer
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all().order_by('-date_joined')
-#     serializer_class = UserSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class GoogleAuthAPIView(APIView):
@@ -56,7 +50,7 @@ class GoogleAuthAPIView(APIView):
             last_name = data.get('family_name')
             profile_picture = data.get('picture')
             return first_name, last_name, profile_picture
-        return None, None
+        return None, None, None
 
     def post(self, request, *args, **kwargs):
         # Get Google token from request
@@ -86,3 +80,29 @@ class GoogleAuthAPIView(APIView):
 
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key}, status=status.HTTP_200_OK)
+
+
+class LevelUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_object(self):
+        user = self.request.user
+        if user is not None:
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            return profile
+        return None
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is not None:
+            level = request.data.get('level')
+            if level is not None:
+                instance.level = level
+                instance.save()
+                return Response({'level': instance.level}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)

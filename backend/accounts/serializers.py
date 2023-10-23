@@ -9,10 +9,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     profile_picture = serializers.CharField(source='userprofile.profile_picture')
-    level = serializers.IntegerField(default=1)
+    level = serializers.IntegerField(source='userprofile.level')
 
     class Meta:
         model = User
         fields = ['url', 'id', 'username', 'email', 'first_name', 'last_name', 'profile_picture', 'level']
-
-
