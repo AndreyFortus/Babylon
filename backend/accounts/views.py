@@ -17,6 +17,7 @@ from .serializers import UserSerializer, UserProfileSerializer
 class UserDetailView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_object(self):
         return self.request.user
