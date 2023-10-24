@@ -120,3 +120,8 @@
     height: 48px;
     font-family: 'Montserrat', sans-serif;
   }
+
+  .book1 {
+    background: url("/assets/img/lessons/book1.png");
+    background-size: 70%;
+  }
