@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider, FacebookLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 // How to use:
@@ -21,10 +21,16 @@ export class GoogleAuthService {
   private nameSubject = new BehaviorSubject<string>('');
   private photoUrlSubject = new BehaviorSubject<string>('');
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private usernameSubject = new BehaviorSubject<string>('');
+  private emailSubject = new BehaviorSubject<string>('');
+  private levelSubject = new BehaviorSubject<number>(0);
 
   name$ = this.nameSubject.asObservable();
   photoUrl$ = this.photoUrlSubject.asObservable();
   loggedIn$ = this.isLoggedInSubject.asObservable();
+  username$ = this.usernameSubject.asObservable();
+  email$ = this.emailSubject.asObservable();
+  level$ = this.levelSubject.asObservable();
 
   private user: SocialUser = new SocialUser
   private accessToken = ''
@@ -34,9 +40,6 @@ export class GoogleAuthService {
 
   setUser(user: SocialUser) {
     this.user = user;
-    console.log(this.user.id);
-    this.setName(user.name);
-    this.setPhotoUrl(user.photoUrl);
     this.setLoggedIn(true);
   }
 
@@ -46,6 +49,18 @@ export class GoogleAuthService {
 
   setPhotoUrl(photoUrl: string) {
     this.photoUrlSubject.next(photoUrl);
+  }
+
+  setUsername(username: string) {
+    this.usernameSubject.next(username);
+  }
+
+  setEmail(email: string) {
+    this.emailSubject.next(email);
+  }
+
+  setlevel(level: number) {
+    this.levelSubject.next(level);
   }
 
   setLoggedIn(loggedIn: boolean) {
@@ -73,15 +88,33 @@ export class GoogleAuthService {
       (response: any) => {
         // Обработка успешного ответа
         const token = response.token;
-        console.log(token);
+        console.log("auth_token", token);
         this.authToken = token;
         // Далее можно что-то сделать с полученным токеном, например, сохранить его в локальном хранилище или в куках
+        this.getUserInfo(this.authToken);
       },
       (error: any) => {
         // Обработка ошибки
         console.error('Ошибка при отправке запроса:', error);
       }
     );
+  }
+
+  getUserInfo(authToken: string) {
+    const url = 'http://127.0.0.1:8000/api/get-user-info/'
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Token ${authToken}`)
+    }
+    this.http.get(url, header).subscribe((response: any) => {
+      console.log(response);
+      this.setName(response.first_name + " " + response.last_name);
+      this.setPhotoUrl(response.profile_picture);
+      this.setUsername(response.username);
+      this.setEmail(response.email);
+      this.setlevel(response.level);
+      console.log(this.name$, this.photoUrl$, this.username$, this.email$, this.level$)
+    });
   }
 
   signOut(): void {

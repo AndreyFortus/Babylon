@@ -23,7 +23,7 @@ export class AppComponent {
           this.isHome = false;
         }
 
-        if (event.url === '/Home') {
+        if (event.url === '/Home' || event.url === '/') {
           // if (contentElement !== null) {
           //   contentElement.style.background = 'linear-gradient(90deg, rgba(79,37,28,0.6) 0%, rgba(79,37,28,0.6) 100%), url(\'/assets/img/home-page/bg.jpg\') no-repeat';
           //   contentElement.style.backgroundSize = 'cover'
