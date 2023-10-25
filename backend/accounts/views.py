@@ -50,7 +50,10 @@ class GoogleAuthAPIView(APIView):
         if google_response.status_code == 200:
             data = google_response.json()
             first_name = data.get('given_name')
-            last_name = data.get('family_name')
+            if data.get('family_name') is not None:
+                last_name = data.get('family_name')
+            else:
+                last_name = ''
             profile_picture = data.get('picture')
             return first_name, last_name, profile_picture
         return None, None, None
