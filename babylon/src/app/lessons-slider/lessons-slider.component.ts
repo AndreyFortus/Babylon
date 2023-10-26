@@ -10,12 +10,13 @@ export class LessonsSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const slider = document.querySelector('.slider') as HTMLElement;
+    const slider = document.querySelector('.slide') as HTMLElement;
     const prevButton = document.getElementById('prevButton') as HTMLElement;
     const nextButton = document.getElementById('nextButton') as HTMLElement;
 
     let slideIndex = 0;
-    let slideWidth = 0; 
+    let slideWidth = 0;
+    let hasScrolled = false;
 
     const firstSlide = slider.firstElementChild as HTMLElement;
 
@@ -24,13 +25,16 @@ export class LessonsSliderComponent implements OnInit {
     }
 
     function moveSlide(offset: number) {
-      slideIndex += offset;
-      slider.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
+      if (!hasScrolled) {
+        slideIndex += offset;
+        slider.style.transform = `translateX(-${slideWidth * 2 * slideIndex}px)`;
+      }
     }
 
     prevButton.addEventListener('click', () => {
       if (slideIndex > 0) {
         moveSlide(-1);
+        hasScrolled = false;
       }
     });
 
@@ -38,6 +42,7 @@ export class LessonsSliderComponent implements OnInit {
       const numSlides = slider.childElementCount;
       if (slideIndex < numSlides - 1) {
         moveSlide(1);
+        hasScrolled = true;
       }
     });
   }

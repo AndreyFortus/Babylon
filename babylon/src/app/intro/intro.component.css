@@ -10,7 +10,7 @@ h1 {
   font-weight: 600;
   font-size: 78px;
   align-self: flex-start;
-  color: #222;
+  color: white;
   padding-left: 40px;
   padding-right: 40px;
 
@@ -19,7 +19,7 @@ h1 {
 ul {
   list-style-type: disc;
   margin-left: 20px;
-  color: #555;
+  color: white;
   font-size: 24px;
 }
 
@@ -31,9 +31,10 @@ ul li {
 p {
   font-size: 24px;
   line-height: 1.6;
-  color: #555;
+  color: white;
   padding-left: 40px;
   padding-right: 40px;
+  /* padding-top: 50px; */
 }
 
 p.motivation {
@@ -51,7 +52,7 @@ p.motivation {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px solid #4F251C;
+  border: 3px solid #ffffff;
 }
 
 .img1 {
