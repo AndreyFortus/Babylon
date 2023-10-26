@@ -1,0 +1,40 @@
+.human {
+    /* background-color: #EFEFEF; */
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 20px;
+    border-radius: 30px;
+}
+
+.human:hover {
+    background-color: white;
+}
+
+.image {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.image img {
+    max-height: 100%;
+}
+
+.human-info {
+    padding-left: 20px;
+    max-width: 70%;
+    overflow: hidden;
+}
+
+p {
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+ul {
+    padding: none;
+}

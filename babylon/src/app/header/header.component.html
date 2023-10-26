@@ -1,0 +1,19 @@
+<header>
+    <div class="toolbar" role="banner">
+        <span style="font-weight: 600;"><a aria-label="logo" rel="noopener" [routerLink]="'/Home'" 
+            title="Babylon">Babylon</a></span>
+        <a aria-label="Home-page" rel="noopener" [routerLink]="'/Home'" title="Home">  
+            Home
+        </a>
+        <a aria-label="Lessons-page" rel="noopener" [routerLink]="'/Lessons'" title="Lessons">
+            Lessons
+        </a>
+        <div class="spacer"></div>
+        <div class="google">
+            <asl-google-signin-button *ngIf="!loggedIn" type='standard' size='large' text="signin_with"></asl-google-signin-button>
+            <p *ngIf="loggedIn">{{username}}</p>
+            <img *ngIf="loggedIn" src="{{ photoUrl }} " referrerpolicy="no-referrer">
+            <button *ngIf="loggedIn" (click)="signOut()" class="signout"></button>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,15 @@
+<!-- Header -->
+<div class="header">
+  <app-header></app-header>
+</div>
+<div [ngClass]="{'content-home': isHome, 'content-lessons': isLessons}">
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="chat-box">
+    <div class="chats"><app-chat></app-chat></div>
+  </div>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>

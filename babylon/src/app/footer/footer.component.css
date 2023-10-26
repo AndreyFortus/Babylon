@@ -1,0 +1,23 @@
+footer {
+    text-align: center;
+    position: absolute;
+    max-width: 100%;
+    padding: 24px;
+    background-color: #613010;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+    margin: 0; 
+    margin-right: 0;
+    position: static;
+    
+}
+
+footer a {
+    display: flex;
+    align-items: center;
+}
