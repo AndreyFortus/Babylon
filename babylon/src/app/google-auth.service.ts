@@ -122,5 +122,8 @@ export class GoogleAuthService {
     this.setLoggedIn(false);
     this.setName('');
     this.setPhotoUrl('');
+    this.setEmail('');
+    this.setUsername('');
+    this.setlevel(0);
   }
 }
