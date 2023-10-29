@@ -18,7 +18,7 @@ class MultipleChoiceQuestion(models.Model):
     option_two = models.CharField(max_length=100)
     option_three = models.CharField(max_length=100)
 
-    damage = models.IntegerField(default=10)  # change damage, if number of tests > or < 10
+    damage = models.IntegerField(default=10)
 
     def __str__(self):
         return self.question

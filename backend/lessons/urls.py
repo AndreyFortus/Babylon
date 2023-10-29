@@ -10,7 +10,5 @@ urlpatterns = [
          MultipleChoiceQuestionListView.as_view(), name='multiple-choice'),
     path('lesson/<int:pk>/questions/fill-blank/',
          FillBlankQuestionListView.as_view(), name='fill-blank'),
-
-    # unfinished
     path('lesson/<int:pk>/monster/', MonsterListView.as_view(), name='monster'),
     ]

@@ -3,7 +3,7 @@ import requests
 import string
 
 from django.contrib.auth.models import User  # Import right User model
-from rest_framework import viewsets, generics, status, permissions
+from rest_framework import generics, status, permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
