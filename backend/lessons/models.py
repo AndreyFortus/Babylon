@@ -5,6 +5,8 @@ class Lesson(models.Model):
     lesson_title = models.CharField(max_length=100)
     theory_text = models.CharField(max_length=10000)
     hp = models.IntegerField()
+    fill_blank_task = models.CharField(max_length=100, default='fill_blank_task')
+    multiple_choice_task = models.CharField(max_length=100, default='multiple_choice_task')
 
     def __str__(self):
         return self.lesson_title
@@ -36,5 +38,5 @@ class Monster(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     hp = models.IntegerField()
 
-    def __str__(self):
+    def __int__(self):
         return self.hp
