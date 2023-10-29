@@ -3,7 +3,7 @@ from django.db import models
 
 class Lesson(models.Model):
     lesson_title = models.CharField(max_length=100)
-    theory_text = models.CharField(max_length=1000)
+    theory_text = models.CharField(max_length=10000)
     hp = models.IntegerField()
 
     def __str__(self):
@@ -17,7 +17,6 @@ class MultipleChoiceQuestion(models.Model):
     option_one = models.CharField(max_length=100)
     option_two = models.CharField(max_length=100)
     option_three = models.CharField(max_length=100)
-    option_four = models.CharField(max_length=100, blank=True)
 
     damage = models.IntegerField(default=10)  # change damage, if number of tests > or < 10
 
