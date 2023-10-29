@@ -10,13 +10,17 @@ import { GoogleAuthService } from '../google-auth.service';
 })
 export class LessonTheoryComponent implements OnInit {
   lessonId: number = 0;
-  theoryTitle: string = ''
-  theoryText: string = ''
-  hp: number = 0
+  level: number = 0;
+  theoryTitle: string = '';
+  theoryText: string = '';
+  hp: number = 0;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService) { }
 
   ngOnInit(): void {
+    this.googleService.level$.subscribe(level => {
+      this.level = level;
+    });
     this.route.params.subscribe(params => {
       this.lessonId = +params['id'];
       console.log(this.lessonId);
