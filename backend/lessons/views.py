@@ -1,50 +1,72 @@
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .models import Lesson, Monster, MultipleChoiceQuestion, FillBlankQuestion
 from .serializers import LessonsSerializer, MultipleChoiceQuestionSerializer, MonsterSerializer, \
     FillBlankQuestionSerializer
 
 
-class MultipleChoiceQuestionList(generics.ListCreateAPIView):
+class LessonDetailView(generics.RetrieveAPIView):
+    serializer_class = LessonsSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_object(self):
+        lesson_pk = self.kwargs.get('pk')
+        lesson = Lesson.objects.filter(pk=lesson_pk).first()
+
+        user = self.request.user
+        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
+        if level >= lesson.pk:
+            return lesson
+        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class MultipleChoiceQuestionListView(generics.ListAPIView):
     serializer_class = MultipleChoiceQuestionSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        queryset = MultipleChoiceQuestion.objects.all()
-        question = self.request.query_params.get('question')
-        if question is not None:
-            queryset = queryset.filter(question=question)
-        return queryset
+        lesson_pk = self.kwargs.get('pk')
+        lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
-class MultipleChoiceQuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = MultipleChoiceQuestionSerializer
-    queryset = MultipleChoiceQuestion.objects.all()
-
-
-class LessonList(generics.ListCreateAPIView):
-    serializer_class = LessonsSerializer
-    queryset = Lesson.objects.all()
+        user = self.request.user
+        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
+        if level >= lesson.pk:
+            return MultipleChoiceQuestion.objects.filter(lesson=lesson_pk)
+        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
 
 
-class LessonDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = LessonsSerializer
-    queryset = Lesson.objects.all()
-
-
-class FillBlankQuestionList(generics.ListCreateAPIView):
+class FillBlankQuestionListView(generics.ListAPIView):
     serializer_class = FillBlankQuestionSerializer
-    queryset = FillBlankQuestion.objects.all()
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
+    def get_queryset(self):
+        lesson_pk = self.kwargs.get('pk')
+        lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
-class FillBlankQuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = FillBlankQuestionSerializer
-    queryset = FillBlankQuestion.objects.all()
+        user = self.request.user
+        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
+        if level >= lesson.pk:
+            return FillBlankQuestion.objects.filter(lesson=lesson_pk)
+        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
 
-
-class MonsterList(generics.ListCreateAPIView):
+# ---------------unfinished---------------
+class MonsterListView(generics.ListAPIView):
     serializer_class = MonsterSerializer
-    queryset = Monster.objects.all()
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
+    def get_queryset(self):
+        lesson_pk = self.kwargs.get('pk')
+        lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
-class MonsterDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = MonsterSerializer
-    queryset = Monster.objects.all()
+        user = self.request.user
+        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
+        if level >= lesson.pk:
+            return Monster.objects.filter(lesson=lesson_pk)
+        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)

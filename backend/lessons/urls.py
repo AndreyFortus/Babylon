@@ -1,15 +1,14 @@
 from django.urls import path
-from .views import MultipleChoiceQuestionList, MultipleChoiceQuestionDetail, LessonList, LessonDetail, \
-    FillBlankQuestionDetail, FillBlankQuestionList, MonsterList, MonsterDetail
+
+from .views import LessonDetailView, MonsterListView
+from .views import MultipleChoiceQuestionListView
+from .views import FillBlankQuestionListView
 
 urlpatterns = [
-    path('lesson/', LessonList.as_view()),
-    path('lesson/<int:pk>', LessonDetail.as_view()),
-    path('multiple_question/', MultipleChoiceQuestionList.as_view()),
-    path('multiple_question/<int:pk>', MultipleChoiceQuestionDetail.as_view()),
-    path('fill_question/', FillBlankQuestionList.as_view()),
-    path('fill_question/<int:pk>', FillBlankQuestionDetail.as_view()),
-    path('monster/', MonsterList.as_view()),
-    path('monster/<int:pk>', MonsterDetail.as_view()),
-
-]
+    path('lesson/<int:pk>/', LessonDetailView.as_view(), name='lesson-detail'),
+    path('lesson/<int:pk>/questions/multiple-choice/',
+         MultipleChoiceQuestionListView.as_view(), name='multiple-choice'),
+    path('lesson/<int:pk>/questions/fill-blank/',
+         FillBlankQuestionListView.as_view(), name='fill-blank'),
+    path('lesson/<int:pk>/monster/', MonsterListView.as_view(), name='monster'),
+    ]
