@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GoogleAuthService } from '../google-auth.service';
+import { TaskTextService } from '../task-text.service';
 
 @Component({
   selector: 'app-lesson-theory',
@@ -15,7 +16,7 @@ export class LessonTheoryComponent implements OnInit {
   theoryText: string = '';
   hp: number = 0;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskText: TaskTextService) { }
 
   ngOnInit(): void {
     this.googleService.level$.subscribe(level => {
@@ -38,6 +39,7 @@ export class LessonTheoryComponent implements OnInit {
         this.theoryTitle = response.lesson_title;
         this.theoryText = response.theory_text;
         this.hp = response.hp;
+        this.taskText.setAdditionalValue([response.multiple_choice_task, response.fill_blank_task]);
     });
   }
 }
