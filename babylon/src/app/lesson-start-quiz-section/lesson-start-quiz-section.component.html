@@ -1,1 +1,58 @@
-<p>lesson-start-quiz-section works!</p>
+<div class="container" *ngIf="isContinue">
+    <div class="question">
+        <p>There will be a task for question</p>
+    </div>
+    <div class="battleground">
+        <div class="quizz-choice" *ngIf="isChoiceQuestion">
+            <h3>{{question}}</h3>
+            <form (ngSubmit)="submitChoiceForm()">
+                <div>
+                  <label>
+                    <input type="radio" name="answer" [value]=0 [(ngModel)]="selectedAnswer" required>
+                    {{ options[0] }}
+                  </label>
+                </div>
+                <div>
+                    <label>
+                      <input type="radio" name="answer" [value]=1 [(ngModel)]="selectedAnswer" required>
+                      {{ options[1] }}
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      <input type="radio" name="answer" [value]=2 [(ngModel)]="selectedAnswer" required>
+                      {{ options[2] }}
+                    </label>
+                  </div>
+                <button type="submit">Hit</button>
+              </form>
+        </div>
+        <div class="quizz-fill" *ngIf="isFillQuestion">
+            <h3>{{question}}</h3>
+            <form (ngSubmit)="submitFillForm()">
+                <div>
+                    <label>
+                        <input type="text" name="answer"  [(ngModel)]="fillAnswer" required="">
+                    </label>
+                </div>
+                <button type="submit">Hit</button>
+            </form>
+        </div>
+        <div class="monster">
+            <div class="monster-health-bar">
+              <div class="monster-hp" [style.width]="calculateHealthSize()"></div>
+            </div>
+            <img src="/assets/img/quizz/output-onlinegiftools.gif" alt="">
+            <p *ngIf="isHit" class="message">-{{damage}} hp!</p>
+            <p *ngIf="isMiss" class="message">You miss</p>
+        </div>
+    </div>
+</div>
+<div class="win-screen" *ngIf="win">
+    <h1>Congratulation!</h1>
+    <button>Next Level</button>
+</div>
+<div class="loose-screen" *ngIf="loose">
+    <h1>Fail!</h1>
+    <button>Back</button>
+</div>

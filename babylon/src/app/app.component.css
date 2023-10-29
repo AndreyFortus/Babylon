@@ -28,10 +28,10 @@
   height: 60px;
 }
 
-/* .content {
+.content {
   display: flex;
   flex-direction: row;
-} */
+}
 
 .content-home {
   display: flex;
