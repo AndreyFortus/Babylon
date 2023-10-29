@@ -50,9 +50,14 @@
 </div>
 <div class="win-screen" *ngIf="win">
     <h1>Congratulation!</h1>
-    <button>Next Level</button>
+    <p *ngIf="hp === 0">Monster is dead!</p>
+    <p *nhIf="hp > 0">Monster run away. but he may come again!</p>
+    <button [routerLink]="['/Lessons']">Return</button>
 </div>
-<div class="loose-screen" *ngIf="loose">
+<div class="loose-screen"  *ngIf="loose">
     <h1>Fail!</h1>
-    <button>Back</button>
+    <div class="fail-buttons">
+      <button [routerLink]="['/Lessons']">Return</button>
+      <button [routerLink]="['/Lesson/', lessonId]">Try again</button>
+    </div>
 </div>
