@@ -33,6 +33,7 @@ button {
     height: 50px;
     background: rgba(79,37,28,0.6);
     color: white;
+    border: 3px solid white;
 }
 
 button:hover {
