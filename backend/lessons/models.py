@@ -5,8 +5,8 @@ class Lesson(models.Model):
     lesson_title = models.CharField(max_length=100)
     theory_text = models.CharField(max_length=10000)
     hp = models.IntegerField()
-    fill_blank_task = models.CharField(max_length=100, default='fill_blank_task')
-    multiple_choice_task = models.CharField(max_length=100, default='multiple_choice_task')
+    fill_blank_task = models.CharField(max_length=100, default='fill_blank_task', blank=True)
+    multiple_choice_task = models.CharField(max_length=100, default='multiple_choice_task',  blank=True)
 
     def __str__(self):
         return self.lesson_title
