@@ -14,7 +14,6 @@
             <p *ngIf="loggedIn">{{username}}</p>
             <img *ngIf="loggedIn" src="{{ photoUrl }} " referrerpolicy="no-referrer">
             <button *ngIf="loggedIn" (click)="signOut()" class="signout"></button>
-            <p>{{loggedIn}}</p>
         </div>
     </div>
 </header>
