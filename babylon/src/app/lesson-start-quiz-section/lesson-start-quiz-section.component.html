@@ -1,6 +1,7 @@
 <div class="container" *ngIf="isContinue">
     <div class="question">
-        <p>There will be a task for question</p>
+        <p *ngIf="isChoiceQuestion">{{tasks[0]}}</p>
+        <p *ngIf="isFillQuestion">{{tasks[1]}}</p>
     </div>
     <div class="battleground">
         <div class="quizz-choice" *ngIf="isChoiceQuestion">
@@ -50,14 +51,18 @@
 </div>
 <div class="win-screen" *ngIf="win">
     <h1>Congratulation!</h1>
-    <p *ngIf="hp === 0">Monster is dead!</p>
-    <p *nhIf="hp > 0">Monster run away. but he may come again!</p>
+    <p>{{phrase}}</p>
     <button [routerLink]="['/Lessons']">Return</button>
 </div>
 <div class="loose-screen"  *ngIf="loose">
     <h1>Fail!</h1>
+    <p>{{phrase}}</p>
     <div class="fail-buttons">
       <button [routerLink]="['/Lessons']">Return</button>
       <button [routerLink]="['/Lesson/', lessonId]">Try again</button>
     </div>
+</div>
+<div class="not-login-screen" *ngIf="level === 0">
+  <h1>You are not suppose to be here</h1>
+  <h2>Log in first</h2>
 </div>

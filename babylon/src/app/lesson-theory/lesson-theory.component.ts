@@ -15,18 +15,20 @@ export class LessonTheoryComponent implements OnInit {
   theoryTitle: string = '';
   theoryText: string = '';
   hp: number = 0;
+  phrase: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskText: TaskTextService) { }
 
   ngOnInit(): void {
     this.googleService.level$.subscribe(level => {
       this.level = level;
+      console.log('subscribe level', this.level)
     });
     this.route.params.subscribe(params => {
       this.lessonId = +params['id'];
-      console.log(this.lessonId);
       this.getTheory(this.lessonId);
     });
+    this.getPhrase('theory');
   }
 
   getTheory(id: number) {
@@ -39,7 +41,18 @@ export class LessonTheoryComponent implements OnInit {
         this.theoryTitle = response.lesson_title;
         this.theoryText = response.theory_text;
         this.hp = response.hp;
-        this.taskText.setAdditionalValue([response.multiple_choice_task, response.fill_blank_task]);
+        this.taskText.setTasks([response.multiple_choice_task, response.fill_blank_task]);
+    });
+  }
+
+  getPhrase(key: string) {
+    const url = 'http://127.0.0.1:8000/api/lesson/get-phrase/' + key;
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Token ${this.googleService.getAuthToken()}`)
+    }
+    this.http.get(url, header).subscribe((response: any) => {
+      this.phrase = response.text;
     });
   }
 }

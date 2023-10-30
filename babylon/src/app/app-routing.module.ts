@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'Lessons', component: LessonsPageComponent },
   { path: 'Lesson/:id/quizz', component: LessonStartQuizSectionComponent},
   { path: 'Lesson/:id', component: LessonTheoryComponent},
-  // { path: 'Lesson', component: LessonTheoryComponent},
 ];
 
 @NgModule({

@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.googleService.signOut();
+    console.log('login', this.loggedIn)
+    
   }
 
 }

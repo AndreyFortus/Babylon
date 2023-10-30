@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleAuthService } from '../google-auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { TaskTextService } from '../task-text.service';
 
 @Component({
   selector: 'app-lesson-start-quiz-section',
@@ -12,6 +13,7 @@ export class LessonStartQuizSectionComponent implements OnInit {
 
   level: number = 0
   question: string = '';
+  tasks: string[] =[];
   options: string[] = [];
   fillAnswer: string = '';
   selectedAnswer: number = -1;
@@ -29,8 +31,9 @@ export class LessonStartQuizSectionComponent implements OnInit {
   isContinue: boolean = true;
   win: boolean = false;
   loose: boolean = false;
+  phrase: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskService: TaskTextService) {}
 
   ngOnInit(): void {
     this.googleService.level$.subscribe(level => {
@@ -40,6 +43,10 @@ export class LessonStartQuizSectionComponent implements OnInit {
       this.lessonId = +params['id'];
       this.getChoiceQuestions(this.lessonId);
     });
+    this.tasks = this.taskService.getTasks();
+    if (this.level === 0) {
+      this.isContinue = false;
+    }
   }
 
   getFillQuestions(id: number) {
@@ -78,9 +85,9 @@ export class LessonStartQuizSectionComponent implements OnInit {
   }
 
   submitChoiceForm() {
-    console.log(this.currentQuizz)
+    this.googleService.setlevel(this.level+1);
     // В этом методе вы можете проверить, является ли выбранный ответ правильным.
-    if (this.selectedAnswer === this.correctAnswer) {
+    if (this.selectedAnswer === this.correctAnswer-1) {
       console.log('Правильный ответ!');
       this.hp -= this.damage
       this.getChoiceQuestions(this.lessonId);
@@ -105,8 +112,7 @@ export class LessonStartQuizSectionComponent implements OnInit {
   }
 
   submitFillForm() {
-    console.log('fill')
-    if (this.fillAnswer === this.fillCorrectAnswer) {
+    if (this.fillAnswer.toLowerCase() === this.fillCorrectAnswer.toLowerCase()) {
       console.log('Правильный ответ!');
       this.hp -= this.damage
       this.getFillQuestions(this.lessonId);
@@ -126,16 +132,24 @@ export class LessonStartQuizSectionComponent implements OnInit {
     if (this.currentQuizz === 20) {
       this.isContinue = false;
       if (this.hp/this.maxHp * 100 <= 30) {
+        this.getPhrase('win')
         this.win = true;
+        this.googleService.setlevel(this.level+1);
       } else {
+        this.getPhrase('defeat')
         this.loose = true;
       }
-      const url = 'http://127.0.0.1:8000/api/lesson/' + this.lessonId + '/questions/multiple-choice/'
+    }
+    }
+
+    getPhrase(key: string) {
+      const url = 'http://127.0.0.1:8000/api/lesson/get-phrase/' + key;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Token ${this.googleService.getAuthToken()}`)
       }
-      this.http.patch(url, {"level": this.level}, header)
-    }
+      this.http.get(url, header).subscribe((response: any) => {
+        this.phrase = response.text;
+      });
     }
   }

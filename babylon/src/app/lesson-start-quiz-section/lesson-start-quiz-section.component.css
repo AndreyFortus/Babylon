@@ -48,6 +48,12 @@ img {
     transform: scaleX(-1);
 }
 
+input {
+    background: rgba(0,0,0,0.2);
+    height: 30px;
+    border: 2px solid white;
+}
+
 .monster-health-bar {
     position: relative;
     width: 60%;
@@ -84,5 +90,18 @@ img {
 
 .win-screen p {
     padding-bottom: 10px;
+}
+
+.not-login-screen {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+.not-login-screen h1, .not-login-screen h2{
+    text-align: center;
+}
+
+.not-login-screen h1 {
+    margin-top: 25%;
 }
  

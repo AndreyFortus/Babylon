@@ -9,12 +9,12 @@ export class TaskTextService {
 
   constructor() { }
 
-  setAdditionalValue(value: string []) {
+  setTasks(value: string []) {
     console.log(value);
     this.tasks = value;
   }
 
-  getAdditionalValue() {
+  getTasks() {
     return this.tasks;
   }
 }

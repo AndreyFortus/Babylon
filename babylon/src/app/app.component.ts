@@ -11,11 +11,14 @@ export class AppComponent {
   isHome = false;
   isLessons = false;
 
+  quizz_regex = /^\/Lesson\/[1-7]\/quizz$/;
+  lesson_regex = /^\/Lesson\/[1-7]$/;
+
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         const contentElement = document.querySelector('.content') as HTMLElement;
-        if (event.url === '/Lessons' || event.url === '/Lesson/' + ['1', '2', '3', '4', '5', '6', '7'].find(num => event.url === '/Lesson/' + num)) {
+        if (event.url === '/Lessons' || this.lesson_regex.test(event.url) || this.quizz_regex.test(event.url)) {
           this.isLessons = true;
           this.isHome = false;
         }
