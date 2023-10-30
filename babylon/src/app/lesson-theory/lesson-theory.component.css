@@ -1,4 +1,4 @@
-::ng-deep .theory #text, ::ng-deep .theory p, .fight-section p, ::ng-deep .theory h1, ::ng-deep .theory h2, ::ng-deep .theory h3, .fight-section h1, ::ng-deep .theory ul, ::ng-deep .theory li{
+::ng-deep .theory #text, ::ng-deep .theory p, .fight-section p, ::ng-deep .theory h1, ::ng-deep .theory h2, ::ng-deep .theory h3, .fight-section h1, ::ng-deep .theory ul, ::ng-deep .theory li, ::ng-deep .theory table{
     font-family: 'Montserrat', sans-serif;
     color: white;
 }
@@ -20,9 +20,30 @@
     padding: 5px 50px 5px 50px;
 }
 
+::ng-deep .theory ul {
+    padding-left: 100px;
+}
+
+::ng-deep .theory h2 {
+    padding-top: 50px;
+}
+
 .fight-section h1, ::ng-deep .theory h2, ::ng-deep .theory h3 {
     padding-left: 50px;
 }
+
+::ng-deep .theory table {
+    border: 1px solid white;
+    border-collapse: collapse;
+    color: white;
+    text-align: center;
+    margin-left: 100px;
+}
+
+::ng-deep .theory tr, ::ng-deep .theory td, ::ng-deep .theory th {
+    padding: 5px;
+    border: 1px solid white;
+  }
 
 .fight-section {
     padding-bottom: 30px;

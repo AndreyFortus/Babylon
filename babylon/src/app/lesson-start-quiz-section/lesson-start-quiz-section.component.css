@@ -1,0 +1,88 @@
+.container {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    color: white;
+}
+
+.question {
+    padding-left: 50px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.battleground {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px; 
+}
+
+.quizz-choice, .quizz-fill {
+    padding-left: 100px;
+}
+
+.quizz-choice div, .quizz-fill div, .quizz-choice h3, .quizz-fill h3 {
+    padding-bottom: 50px;
+}
+
+.monster {
+    text-align: center;
+    padding-top: 50px;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    background: rgba(79,37,28,0.6);
+    color: white;
+    border: 3px solid white;
+}
+
+button:hover {
+    background: rgba(79,37,28,1);
+}
+
+img {
+    width: 400px;
+    height: 400px;
+    transform: scaleX(-1);
+}
+
+.monster-health-bar {
+    position: relative;
+    width: 60%;
+    height: 10px;
+    margin-left: 20%;
+    border: 1px solid black;
+}
+
+.monster-hp {
+    background-color: green;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s ease-in-out;
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.34) 0px 3px 8px;;
+}
+
+.message {
+    color: red;
+}
+
+.win-screen, .loose-screen {
+    text-align: center;
+    color: white;
+    margin-top: 25%;
+}
+
+.fail-buttons {
+    text-align: center;
+}
+
+.fail-buttons button {
+    margin: 0 10px;
+}
+
+.win-screen p {
+    padding-bottom: 10px;
+}
+ 
