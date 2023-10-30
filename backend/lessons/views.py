@@ -84,12 +84,9 @@ class PhraseDetailView(generics.RetrieveAPIView):
         if mode == 'theory':
             return random.choice(Phrase.objects.filter(name__icontains='theory'))
         elif mode == 'total-victory':
-            phrase = random.choice(Phrase.objects.filter(name__icontains='total'))
-            return phrase
+            return random.choice(Phrase.objects.filter(name__icontains='total'))
         elif mode == 'defeat':
-            phrase = random.choice(Phrase.objects.filter(name__icontains='defeat'))
-            return phrase
+            return random.choice(Phrase.objects.filter(name__icontains='defeat'))
         elif mode == 'partial-victory':
-            phrase = random.choice(Phrase.objects.filter(name__icontains='partial'))
-            return phrase
+            return random.choice(Phrase.objects.filter(name__icontains='partial'))
         return Response({'error': 'Invalid mode'}, status=status.HTTP_400_BAD_REQUEST)
