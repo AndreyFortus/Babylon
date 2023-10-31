@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Lesson, MultipleChoiceQuestion, FillBlankQuestion, Monster
+from .models import Lesson, MultipleChoiceQuestion, FillBlankQuestion, Monster, Phrase
 
 class LessonsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,4 +22,10 @@ class FillBlankQuestionSerializer(serializers.ModelSerializer):
 class MonsterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Monster
+        fields = '__all__'
+
+
+class PhraseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Phrase
         fields = '__all__'

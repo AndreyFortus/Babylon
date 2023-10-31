@@ -1,11 +1,13 @@
+import random
+
 from rest_framework import generics, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .models import Lesson, Monster, MultipleChoiceQuestion, FillBlankQuestion
+from .models import Lesson, Monster, MultipleChoiceQuestion, FillBlankQuestion, Phrase
 from .serializers import LessonsSerializer, MultipleChoiceQuestionSerializer, MonsterSerializer, \
-    FillBlankQuestionSerializer
+    FillBlankQuestionSerializer, PhraseSerializer
 
 
 class LessonDetailView(generics.RetrieveAPIView):
@@ -55,7 +57,7 @@ class FillBlankQuestionListView(generics.ListAPIView):
             return FillBlankQuestion.objects.filter(lesson=lesson_pk)
         return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
 
-# ---------------unfinished---------------
+
 class MonsterListView(generics.ListAPIView):
     serializer_class = MonsterSerializer
     permission_classes = [IsAuthenticated]
@@ -70,3 +72,21 @@ class MonsterListView(generics.ListAPIView):
         if level >= lesson.pk:
             return Monster.objects.filter(lesson=lesson_pk)
         return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class PhraseDetailView(generics.RetrieveAPIView):
+    serializer_class = PhraseSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_object(self):
+        mode = self.kwargs.get('mode')
+        if mode == 'theory':
+            return random.choice(Phrase.objects.filter(name__icontains='theory'))
+        elif mode == 'total-victory':
+            return random.choice(Phrase.objects.filter(name__icontains='total'))
+        elif mode == 'defeat':
+            return random.choice(Phrase.objects.filter(name__icontains='defeat'))
+        elif mode == 'partial-victory':
+            return random.choice(Phrase.objects.filter(name__icontains='partial'))
+        return Response({'error': 'Invalid mode'}, status=status.HTTP_400_BAD_REQUEST)

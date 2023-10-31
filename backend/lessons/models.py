@@ -40,3 +40,11 @@ class Monster(models.Model):
 
     def __int__(self):
         return self.hp
+
+
+class Phrase(models.Model):
+    name = models.CharField(max_length=100, default='win')
+    text = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
