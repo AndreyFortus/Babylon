@@ -85,7 +85,6 @@ export class LessonStartQuizSectionComponent implements OnInit {
   }
 
   submitChoiceForm() {
-    this.googleService.setlevel(this.level+1);
     // В этом методе вы можете проверить, является ли выбранный ответ правильным.
     if (this.selectedAnswer === this.correctAnswer-1) {
       console.log('Правильный ответ!');
@@ -132,9 +131,16 @@ export class LessonStartQuizSectionComponent implements OnInit {
     if (this.currentQuizz === 20) {
       this.isContinue = false;
       if (this.hp/this.maxHp * 100 <= 30) {
-        this.getPhrase('win')
+        if (this.hp > 0) {
+          this.getPhrase('partial-victory')
+        }
+        else if (this.hp === 0) {
+          this.getPhrase('total-victory')
+        }
         this.win = true;
-        this.googleService.setlevel(this.level+1);
+        if (this.lessonId === this.level) {
+          this.googleService.setlevel(this.level+1);
+        }
       } else {
         this.getPhrase('defeat')
         this.loose = true;
