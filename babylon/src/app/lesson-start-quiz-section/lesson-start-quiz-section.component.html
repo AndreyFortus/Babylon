@@ -33,7 +33,7 @@
             <form (ngSubmit)="submitFillForm()">
                 <div>
                     <label>
-                        <input type="text" name="answer"  [(ngModel)]="fillAnswer" required="">
+                        <input type="text" name="answer" autocomplete="off" [(ngModel)]="fillAnswer" required="">
                     </label>
                 </div>
                 <button type="submit">Hit</button>

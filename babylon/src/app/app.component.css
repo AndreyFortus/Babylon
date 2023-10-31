@@ -50,4 +50,5 @@
 
 .main {
   width: 80vw;
+  min-height: 100vh;
 }

@@ -19,6 +19,7 @@
 
 .quizz-choice, .quizz-fill {
     padding-left: 100px;
+    padding-bottom: 50px;
 }
 
 .quizz-choice div, .quizz-fill div, .quizz-choice h3, .quizz-fill h3 {
@@ -49,7 +50,7 @@ img {
 }
 
 input {
-    background: rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.2);
     height: 30px;
     border: 2px solid white;
     color: white;
@@ -72,7 +73,9 @@ input {
 }
 
 .message {
+    font-size: 30px;
     color: red;
+    text-decoration: solid;
 }
 
 .win-screen, .loose-screen {
