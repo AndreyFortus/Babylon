@@ -32,6 +32,7 @@ export class LessonStartQuizSectionComponent implements OnInit {
   win: boolean = false;
   loose: boolean = false;
   phrase: string = '';
+  image: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskService: TaskTextService) {}
 
@@ -47,6 +48,8 @@ export class LessonStartQuizSectionComponent implements OnInit {
     if (this.level === 0) {
       this.isContinue = false;
     }
+    this.image = `/assets/img/quizz/${this.getRandomInt(1, 11)}.gif`
+    console.log(this.image);
   }
 
   getFillQuestions(id: number) {
@@ -157,5 +160,11 @@ export class LessonStartQuizSectionComponent implements OnInit {
       this.http.get(url, header).subscribe((response: any) => {
         this.phrase = response.text;
       });
+    }
+
+    getRandomInt(min: number, max: number) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min);
     }
   }

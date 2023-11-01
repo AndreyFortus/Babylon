@@ -46,7 +46,6 @@ button:hover {
 img {
     width: 400px;
     height: 400px;
-    transform: scaleX(-1);
 }
 
 input {

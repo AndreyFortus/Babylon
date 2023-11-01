@@ -43,7 +43,7 @@
             <div class="monster-health-bar">
               <div class="monster-hp" [style.width]="calculateHealthSize()"></div>
             </div>
-            <img src="/assets/img/quizz/output-onlinegiftools.gif" alt="">
+            <img src="{{image}}" alt="">
             <p *ngIf="isHit" class="message">-{{damage}} hp!</p>
             <p *ngIf="isMiss" class="message">You miss</p>
         </div>
