@@ -48,7 +48,7 @@ export class LessonStartQuizSectionComponent implements OnInit {
     if (this.level === 0) {
       this.isContinue = false;
     }
-    this.image = `/assets/img/quizz/${this.getRandomInt(1, 11)}.gif`
+    this.image = `/assets/img/quizz/${this.getRandomInt(1, 10)}.gif`
     console.log(this.image);
   }
 
