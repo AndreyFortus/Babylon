@@ -18,6 +18,7 @@ import { LessonTheoryComponent } from './lesson-theory/lesson-theory.component';
 import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/lesson-start-quiz-section.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LessonsSliderComponent } from './lessons-slider/lessons-slider.component';
+import { TweetsComponent } from './tweets/tweets.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LessonsSliderComponent } from './lessons-slider/lessons-slider.componen
     LessonComponent,
     LessonTheoryComponent,
     LessonStartQuizSectionComponent,
-    LessonsSliderComponent
+    LessonsSliderComponent,
+    TweetsComponent
   ],
   imports: [
     BrowserModule,
