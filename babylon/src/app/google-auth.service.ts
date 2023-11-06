@@ -60,7 +60,16 @@ export class GoogleAuthService {
   }
 
   setlevel(level: number) {
+    const url = 'http://127.0.0.1:8000/api/user-update-level/';
+    const headers = new HttpHeaders().set('Authorization', `Token ${this.authToken}`);
+    const data = { "level": level };
+    this.http.patch(url, data, { headers: headers }).subscribe(
+      (response) => {
+        // Обработка успешного ответа от сервера
+        console.log(response);
+      });
     this.levelSubject.next(level);
+    console.log('set level', this.level$);
   }
 
   setLoggedIn(loggedIn: boolean) {
@@ -124,6 +133,6 @@ export class GoogleAuthService {
     this.setPhotoUrl('');
     this.setEmail('');
     this.setUsername('');
-    this.setlevel(0);
+    // this.setlevel(0);
   }
 }

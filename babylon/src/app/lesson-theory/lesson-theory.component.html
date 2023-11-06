@@ -1,5 +1,7 @@
 <div class="container" *ngIf="level >= lessonId">
     <div class="theory">
+        <h2>{{phrase}}</h2>
+        <hr>
         <div class="theory-title" [innerHTML]="theoryTitle"></div>
         <div class="theory-text" [innerHTML]="theoryText"></div>
     </div>
