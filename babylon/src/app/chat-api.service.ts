@@ -21,10 +21,34 @@ export class ChatApiService {
     return users;
   }
 
-  getMessages(): string[] {
-    // let messages: string[] = ["Message", "Message", "Message", "Message", "Message", "Message", "Message", "Message", ]
-    let messages: string[] = ["Hi there! I just completed a challenging grammar quiz...", "Hey, I'm stuck on a vocabulary exercise...", "Привіт, зараз проходжу 3 урок та..."]
-    return messages;
+  getMessages(chatId: number): string[] {
+    // Повертаємо повідомлення для конкретного чату за його chatId
+    // В цьому прикладі повідомлення відповідають індексу чату, але ви можете реалізувати більш складну логіку для вибору повідомлень за chatId.
+    let messages: string[] = [
+      "Hi there! I just completed a challenging grammar quiz...",
+      "Hey, I'm stuck on a vocabulary exercise...",
+      "Привіт, зараз проходжу 3 урок та..."
+    ];
+  
+    if (chatId >= 0 && chatId < messages.length) {
+      return [messages[chatId]]; // Повертаємо лише одне повідомлення за вказаним chatId
+    }
+  
+    return []; // Якщо chatId не відповідає жодному чату, повертаємо пустий масив
+  }
+
+  getUserResponses(chatId: number): string[] {
+    let userResponses: string[] = 
+      [
+        "Це відповідь користувача на перше повідомлення",
+        "Дякую за вашу допомогу!",
+        "Продовжимо навчання разом"
+      ];
+      if (chatId >= 0 && chatId < userResponses.length) {
+        return [userResponses[chatId]]; // Повертаємо лише одне повідомлення за вказаним chatId
+      }
+    
+      return []; // Якщо chatId не відповідає жодному чату, повертаємо пустий масив
   }
 
   getAvatars(): string[] {
@@ -33,5 +57,3 @@ export class ChatApiService {
     return avatars;
   }
 }
-
-

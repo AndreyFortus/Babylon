@@ -5,8 +5,10 @@
     <div class="chat">
         <ul>
             <li *ngFor="let user of users; let i = index">
-                <app-chat-human-card [user] = "user" [message]="messages[i]" [avatar]="avatars[i]"></app-chat-human-card>
+                <a [routerLink]="['/chat/conversation', i]">
+                    <app-chat-human-card [user] = "user" [message]="messages[i]" [avatar]="avatars[i]"></app-chat-human-card>
+                </a>
             </li>
         </ul>
     </div>
-</div>
+</div> 

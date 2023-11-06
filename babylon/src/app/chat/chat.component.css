@@ -1,22 +1,90 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 li {
@@ -54,7 +122,7 @@ input:hover {
     /* max-height: 95vh; */
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
     overflow-y: scroll;
     background: rgba(255, 255, 255, 0.5);
@@ -65,6 +133,20 @@ input:hover {
 
 ::-webkit-scrollbar-thumb {
     width: 9px;
-    background: rgb(79,37,28);
+    background: rgb(79, 37, 28);
     border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+    /* Вимкнути підкреслення для всіх посилань */
+    color: inherit;
+    /* Зберегти колір тексту як він є */
+}
+
+a:hover {
+    text-decoration: none;
+    /* Вимкнути підкреслення для посилань при наведенні */
+    color: inherit;
+    /* Зберегти колір тексту як він є при наведенні */
 }
