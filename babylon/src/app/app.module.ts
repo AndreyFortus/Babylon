@@ -19,6 +19,7 @@ import { LessonStartQuizSectionComponent } from './lesson-start-quiz-section/les
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LessonsSliderComponent } from './lessons-slider/lessons-slider.component';
 import { FormsModule } from '@angular/forms';
+import { ChatConversationComponent } from './chat-conversation/chat-conversation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     LessonComponent,
     LessonTheoryComponent,
     LessonStartQuizSectionComponent,
-    LessonsSliderComponent
+    LessonsSliderComponent,
+    ChatConversationComponent
   ],
   imports: [
     BrowserModule,

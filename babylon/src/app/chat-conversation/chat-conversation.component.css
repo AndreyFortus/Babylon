@@ -1,0 +1,32 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.person {
+    display: flex;
+    flex-direction: row;
+}
+
+.image {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.image img {
+    max-height: 100%;
+}
+
+.human-info {
+    padding-left: 20px;
+    max-width: 70%;
+    overflow: hidden;
+}
+
+.messages {
+    height: 90vh;
+}

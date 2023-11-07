@@ -11,6 +11,8 @@ export class ChatComponent implements OnInit {
   users: string[] = [];
   messages: string[] = [];
   avatars: string[] = [];
+  isConversation: boolean = false;
+  conversationId: number = -1;
 
   constructor(private ChatapiService: ChatApiService, private googleService: GoogleAuthService) { }
 
