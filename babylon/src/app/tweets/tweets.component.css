@@ -1,0 +1,81 @@
+.tweet {
+    width: 70%;
+    border-radius: 30px;
+    background: rgba(79,37,28,0.6);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 30px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 10px;
+}
+
+.add-tweet-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.not-allowed-container h1 {
+    /* height: 100vh; */
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding-top: 20%;
+}
+
+textarea {
+  border: none;
+  border-radius: 10px;
+  min-height: 60px;
+  background: rgba(255, 255, 255, 0.7);
+  padding-left: 10px;
+  color: white;
+  width: 60%;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background: url('/assets/img/tweets/send.png') no-repeat center center, rgb(79,37,28);
+  background-size: 50%;
+  color: white;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.8);
+  width: 60px;
+}
+
+button:active {
+  background: url('/assets/img/tweets/send.png') no-repeat center center, rgb(64, 30, 22);
+  background-size: 50%;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+hr {
+    border: 1px solid white;
+    width: 100%;
+}

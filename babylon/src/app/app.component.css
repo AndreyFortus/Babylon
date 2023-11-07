@@ -48,6 +48,14 @@
   background-attachment: fixed;
 }
 
+.content-tweets {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, rgba(79,37,28,0.7) 0%, rgba(79,37,28,0.7) 100%), url('/assets/img/tweets/tweets_bg.jpg') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .main {
   width: 80vw;
   min-height: 100vh;
