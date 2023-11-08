@@ -38,7 +38,7 @@ textarea {
   min-height: 60px;
   background: rgba(255, 255, 255, 0.7);
   padding-left: 10px;
-  color: white;
+  color: black;
   width: 60%;
   resize: none;
 }

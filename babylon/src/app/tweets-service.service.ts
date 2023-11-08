@@ -56,7 +56,7 @@ class Tweet {
   constructor(id: number, content: string, created_at: string, user: string){
     this.id = id;
     this.content = content;
-    this.created_at = created_at.replace('T', '\t').slice(0, -3);
+    this.created_at = created_at.replace('T', '\n').slice(0, -3);
     this.user = user;
   }
 }
