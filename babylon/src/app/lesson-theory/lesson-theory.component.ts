@@ -11,6 +11,7 @@ import { TaskTextService } from '../task-text.service';
 })
 export class LessonTheoryComponent implements OnInit {
   lessonId: number = 0;
+  loggedIn = false;
   level: number = 0;
   theoryTitle: string = '';
   theoryText: string = '';
@@ -20,9 +21,17 @@ export class LessonTheoryComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskText: TaskTextService) { }
 
   ngOnInit(): void {
+    if (!this.loggedIn)
+      this.level = 0;
     this.googleService.level$.subscribe(level => {
       this.level = level;
       console.log('subscribe level', this.level)
+    });
+    this.googleService.loggedIn$.subscribe(loggedIn => {
+      this.loggedIn = loggedIn;
+      if (this.loggedIn)
+        this.getTheory(this.lessonId);
+      this.getPhrase('theory');
     });
     this.route.params.subscribe(params => {
       this.lessonId = +params['id'];

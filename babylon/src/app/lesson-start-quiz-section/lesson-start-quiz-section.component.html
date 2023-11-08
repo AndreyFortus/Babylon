@@ -1,4 +1,4 @@
-<div class="container" *ngIf="isContinue">
+<div class="container" *ngIf="isContinue && loggedIn">
     <div class="question">
         <p *ngIf="isChoiceQuestion">{{tasks[0]}}</p>
         <p *ngIf="isFillQuestion">{{tasks[1]}}</p>
@@ -62,7 +62,7 @@
       <button [routerLink]="['/Lesson/', lessonId]">Try again</button>
     </div>
 </div>
-<div class="not-login-screen" *ngIf="level === 0">
+<div class="not-login-screen" *ngIf="level === 0 || !loggedIn">
   <h1>You are not suppose to be here</h1>
   <h2>Log in first</h2>
 </div>

@@ -133,6 +133,8 @@ export class GoogleAuthService {
     this.setPhotoUrl('');
     this.setEmail('');
     this.setUsername('');
+    this.accessToken = '';
+    this.authToken = '';
     // this.setlevel(0);
   }
 }

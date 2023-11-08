@@ -21,6 +21,7 @@ export class TweetsComponent implements OnInit {
     });
     this.googleService.loggedIn$.subscribe(loggedIn => {
       this.loggedIn = loggedIn;
+      this.tweets_list = [];
       this.tweetsService.getTweets();
     })
   }

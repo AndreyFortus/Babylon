@@ -36,7 +36,7 @@ import { TweetsComponent } from './tweets/tweets.component';
     LessonTheoryComponent,
     LessonStartQuizSectionComponent,
     LessonsSliderComponent,
-    TweetsComponent
+    TweetsComponent,
   ],
   imports: [
     BrowserModule,

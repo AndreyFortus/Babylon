@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleAuthService } from '../google-auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTextService } from '../task-text.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { TaskTextService } from '../task-text.service';
 })
 export class LessonStartQuizSectionComponent implements OnInit {
 
-  level: number = 0
+  level: number = 0;
+  loggedIn = false;
   question: string = '';
   tasks: string[] =[];
   options: string[] = [];
@@ -34,12 +35,17 @@ export class LessonStartQuizSectionComponent implements OnInit {
   phrase: string = '';
   image: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskService: TaskTextService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private googleService: GoogleAuthService, private taskService: TaskTextService, private router: Router) {}
 
   ngOnInit(): void {
     this.googleService.level$.subscribe(level => {
           this.level = level;
         });
+    this.googleService.loggedIn$.subscribe(loggedIn => {
+      this.loggedIn = loggedIn;
+      if (!this.loggedIn)
+        this.router.navigate(['/Home']);
+    });
     this.route.params.subscribe(params => {
       this.lessonId = +params['id'];
       this.getChoiceQuestions(this.lessonId);

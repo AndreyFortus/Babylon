@@ -1,4 +1,4 @@
-<div class="container" *ngIf="level >= lessonId">
+<div class="container" *ngIf="level >= lessonId && loggedIn">
     <div class="theory">
         <h2>{{phrase}}</h2>
         <hr>
@@ -15,7 +15,11 @@
     </div>
 </div>
 
-<div class="not-allowed-container" *ngIf="level < lessonId">
+<div class="not-allowed-container" *ngIf="level < lessonId && loggedIn">
     <h1>You haven't taken the previous lessons yet. Come back here later</h1>
     <button [routerLink]="['/Lessons']" class="back-button">Back</button>
+</div>
+
+<div class="not-allowed-container" *ngIf="!loggedIn">
+    <h1>Log in first</h1>
 </div>
