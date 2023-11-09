@@ -13,6 +13,9 @@ INSTALLED_APPS = [
     'tweets',
     'accounts',
     'lessons',
+    'chat',
+    'daphne',
+
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'corsheaders',
     'social_django',
     'allauth',
@@ -59,7 +63,10 @@ TEMPLATES = [
         },
     },
 ]
+
 WSGI_APPLICATION = 'babylon_project.wsgi.application'
+ASGI_APPLICATION = 'babylon_project.asgi.application'
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
@@ -136,3 +143,12 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Angular host
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
