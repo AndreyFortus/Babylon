@@ -1,5 +1,5 @@
 <div *ngIf="isLoggedIn" class="main">
-    <div class="search-bar">
+    <div class="search-bar" *ngIf="!isConversation">
         <input type="text">
     </div>
     <div class="chat" *ngIf="!isConversation">
