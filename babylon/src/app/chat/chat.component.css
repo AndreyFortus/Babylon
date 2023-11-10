@@ -54,6 +54,10 @@ input:hover {
     /* max-height: 95vh; */
 }
 
+.conversation {
+    height: 95vh;
+}
+
  ::-webkit-scrollbar {
     width: 10px;
     overflow-y: scroll;
