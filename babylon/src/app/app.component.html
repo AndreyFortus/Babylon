@@ -2,7 +2,7 @@
 <div class="header">
   <app-header></app-header>
 </div>
-<div class="content" [ngClass]="{'content-home': isHome, 'content-lessons': isLessons}">
+<div [ngClass]="{'content-home': isHome, 'content-lessons': isLessons, 'content-tweets': isTweets}">
   <div class="main">
     <router-outlet></router-outlet>
   </div>

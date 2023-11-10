@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'babylon';
   isHome = false;
   isLessons = false;
+  isTweets = false;
 
   quizz_regex = /^\/Lesson\/[1-7]\/quizz$/;
   lesson_regex = /^\/Lesson\/[1-7]$/;
@@ -21,11 +22,19 @@ export class AppComponent {
         if (event.url === '/Lessons' || this.lesson_regex.test(event.url) || this.quizz_regex.test(event.url)) {
           this.isLessons = true;
           this.isHome = false;
+          this.isTweets = false;
         }
 
         if (event.url === '/Home' || event.url === '/') {
           this.isHome = true;
           this.isLessons = false;
+          this.isTweets = false;
+        }
+
+        if (event.url === '/Tweets') {
+          this.isHome = false;
+          this.isLessons = false;
+          this.isTweets = true;
         }
       }
     });

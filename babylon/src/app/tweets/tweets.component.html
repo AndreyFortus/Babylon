@@ -1,0 +1,24 @@
+<div class="main" *ngIf="loggedIn">
+    <div class="add-tweet-container">
+        <textarea type="text" [(ngModel)]="post" placeholder="What`s new?"></textarea>
+        <button (click)="sendTweet()"></button>
+    </div>
+    <ul>
+        <li *ngFor="let tweet of tweets_list.reverse()">
+            <div class="tweet">
+                <div class="info">
+                    <p>by {{tweet.user}}</p>
+                    <p>at {{tweet.created_at}}</p>
+                </div>
+                <hr>
+                <div class="content">
+                    <p>{{tweet.content}}</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="not-allowed-container" *ngIf="!loggedIn">
+    <h1>Log in to see posts</h1>
+</div>

@@ -40,7 +40,6 @@ export class GoogleAuthService {
 
   setUser(user: SocialUser) {
     this.user = user;
-    this.setLoggedIn(true);
   }
 
   setName(name: string) {
@@ -117,6 +116,7 @@ export class GoogleAuthService {
     }
     this.http.get(url, header).subscribe((response: any) => {
       console.log(response);
+      this.setLoggedIn(true);
       this.setName(response.first_name + " " + response.last_name);
       this.setPhotoUrl(response.profile_picture);
       this.setUsername(response.username);
@@ -133,6 +133,8 @@ export class GoogleAuthService {
     this.setPhotoUrl('');
     this.setEmail('');
     this.setUsername('');
+    this.accessToken = '';
+    this.authToken = '';
     // this.setlevel(0);
   }
 }
