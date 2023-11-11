@@ -1,6 +1,7 @@
 from channels.middleware import BaseMiddleware
 from channels.db import database_sync_to_async
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import PermissionDenied
 from rest_framework.authtoken.models import Token
 
 
@@ -18,6 +19,8 @@ class TokenAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
         token_key = get_token_from_scope(scope)
         user = await self.get_user(token_key)
+        if user is None:
+            return PermissionDenied()
         scope['user'] = user
 
         return await super().__call__(scope, receive, send)
@@ -29,6 +32,4 @@ class TokenAuthMiddleware(BaseMiddleware):
                 token = Token.objects.get(key=token_key)
                 return token.user
             except Token.DoesNotExist:
-                pass
-
-        return AnonymousUser()
+                return None
