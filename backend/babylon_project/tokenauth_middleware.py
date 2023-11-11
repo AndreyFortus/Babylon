@@ -4,12 +4,21 @@ from django.core.exceptions import PermissionDenied
 from rest_framework.authtoken.models import Token
 
 
-def get_token_from_scope(scope):
-    headers = dict(scope['headers'])
-    authorization_header = headers.get(b'authorization').decode('utf-8')
+# def get_token_from_scope(scope):
+#     headers = dict(scope['headers'])
+#     authorization_header = headers.get(b'authorization').decode('utf-8')
+#
+#     if authorization_header.startswith('Token '):
+#         return authorization_header[6:]
+#
+#     return None
 
-    if authorization_header.startswith('Token '):
-        return authorization_header[6:]
+def get_token_from_scope(scope):
+    subprotocols = scope.get('subprotocols', [])
+
+    for subprotocol in subprotocols:
+        if subprotocol.startswith('Token '):
+            return subprotocol[6:]
 
     return None
 
