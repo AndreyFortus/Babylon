@@ -1,6 +1,5 @@
 from channels.middleware import BaseMiddleware
 from channels.db import database_sync_to_async
-from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
 from rest_framework.authtoken.models import Token
 
