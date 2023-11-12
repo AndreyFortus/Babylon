@@ -9,7 +9,7 @@ headers = {
     "Sec-WebSocket-Protocol": f"Token {token}"
 }
 
-ws = websocket.create_connection(url, header=headers, timeout=60)
+ws = websocket.create_connection(url, header=headers)
 
 try:
     message_data = {
@@ -20,7 +20,7 @@ try:
     ws.send(message_json)
     print(f"Sent: {message_json}")
 
-    time.sleep(1)
+    time.sleep(10)
 
     response = ws.recv()
     print(f"Received: {response}")
