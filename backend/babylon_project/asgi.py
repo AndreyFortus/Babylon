@@ -12,8 +12,13 @@ from .tokenauth_middleware import TokenAuthMiddleware
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
-    'websocket': TokenAuthMiddleware(
+    'websocket': AllowedHostsOriginValidator(
+        TokenAuthMiddleware(
             URLRouter(
                 websocket_urlpatterns
-            ))
+            )
+        )
+    )
 })
+
+application.websocket_timeout = 60 * 1

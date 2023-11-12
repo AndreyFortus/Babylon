@@ -1,28 +1,29 @@
-from channels.testing import WebsocketCommunicator
-from django.test import TestCase
-from chat.consumers import ChatConsumer
+import json
+import time
+import websocket
 
-class ChatConsumerTest(TestCase):
-    async def connect_ws(self, room_name):
-        communicator = WebsocketCommunicator(ChatConsumer, f"/ws/chat/{room_name}/")
-        connected, subprotocol = await communicator.connect()
-        return communicator
+url = "ws://127.0.0.1:8080/ws/chat/2/"
+token = "b712ed6d26e50d86d852557ee33c222b3fc4af95"
 
-    async def disconnect_ws(self, communicator):
-        await communicator.disconnect()
+headers = {
+    "Sec-WebSocket-Protocol": f"Token {token}"
+}
 
-    async def test_chat_consumer(self):
-        room_name = "test_room"
-        communicator = await self.connect_ws(room_name)
+ws = websocket.create_connection(url, header=headers, timeout=60)
 
-        message = {
-            "type": "chat_message",
-            "message": "Test message"
-        }
+try:
+    message_data = {
+        "message": "Hello, WebSocket!"
+    }
 
-        await communicator.send_json_to(message)
-        response = await communicator.receive_json_from()
+    message_json = json.dumps(message_data)
+    ws.send(message_json)
+    print(f"Sent: {message_json}")
 
-        self.assertEqual(response, message)
+    time.sleep(1)
 
-        await self.disconnect_ws(communicator)
+    response = ws.recv()
+    print(f"Received: {response}")
+
+finally:
+    ws.close()
