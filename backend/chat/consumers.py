@@ -11,14 +11,11 @@ from .serializers import MessageSerializer
 
 
 class ChatConsumer(WebsocketConsumer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.room_group_name = None
-        self.room_name = None
+    user = None
 
     def connect(self):
         print("here", self.scope['user'])
-        self.scope['user'] = self.scope["user"]
+        self.__class__.user = self.scope["user"]
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
 
@@ -50,10 +47,11 @@ class ChatConsumer(WebsocketConsumer):
     def chat_message(self, event):
         text_data_json = event.copy()
         text_data_json.pop("type")
-        message = text_data_json["message"]
+        message = (text_data_json["message"])
 
         conversation = Conversation.objects.get(id=int(self.room_name))
-        sender = self.scope['user']
+        sender = self.__class__.user
+        print(f"Sender before message creation: {sender}")
 
         if isinstance(sender, User):
             _message = Message.objects.create(
@@ -69,10 +67,10 @@ class ChatConsumer(WebsocketConsumer):
             )
         else:
             _message = Message.objects.create(
-                    sender=sender,
-                    text=message,
-                    conversation_id=conversation,
-                )
+                sender=sender,
+                text=message,
+                conversation_id=conversation,
+            )
             serializer = MessageSerializer(instance=_message)
             # Send message to WebSocket
             self.send(

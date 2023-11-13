@@ -10,7 +10,6 @@ django_asgi_app = get_asgi_application()
 from chat.routing import websocket_urlpatterns  # must be here, under os.setdefault and django_asgi_app
 from .tokenauth_middleware import TokenAuthMiddleware
 
-websocket_timeout = 60 * 2
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
@@ -21,5 +20,3 @@ application = ProtocolTypeRouter({
             )
         )
 })
-
-application.websocket_timeout = 60 * 1
