@@ -1,83 +1,78 @@
 import json
 
-from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
-from channels.generic.websocket import WebsocketConsumer
-from rest_framework.authtoken.admin import User
+from channels.generic.websocket import AsyncWebsocketConsumer
 from rest_framework.authtoken.models import Token
 
 from .models import Message, Conversation
 from .serializers import MessageSerializer
 
 
-class ChatConsumer(WebsocketConsumer):
-    user = None
-
-    def connect(self):
-        print("here", self.scope['user'])
-        self.__class__.user = self.scope["user"]
+class ChatConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
 
         # Join room group
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name, self.channel_name
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
         )
 
-        self.accept()
+        await self.accept()
 
-    def disconnect(self, close_code):
+    async def disconnect(self, close_code):
         # Leave room group
-        async_to_sync(self.channel_layer.group_discard)(
-            self.room_group_name, self.channel_name
+        await self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
         )
 
-    def receive(self, text_data=None, bytes_data=None):
+    async def receive(self, text_data=None, bytes_data=None):
         # parse the json data into dictionary object
         text_data_json = json.loads(text_data)
 
         # Send message to room group
-        chat_type = {"type": "chat_message"}
+        chat_type = {"type": "chat_message", "user_id": self.scope["user"].id}
         return_dict = {**chat_type, **text_data_json}
-        async_to_sync(self.channel_layer.group_send)(
+
+        await self.channel_layer.group_send(
             self.room_group_name,
             return_dict,
         )
 
-    def chat_message(self, event):
+    async def chat_message(self, event):
         text_data_json = event.copy()
         text_data_json.pop("type")
-        message = (text_data_json["message"])
+        message = text_data_json["message"]
 
-        conversation = Conversation.objects.get(id=int(self.room_name))
-        sender = self.__class__.user
-        print(f"Sender before message creation: {sender}")
+        conversation = await self.get_conversation()
 
-        if isinstance(sender, User):
-            _message = Message.objects.create(
-                sender=sender,
-                text=message,
-                conversation_id=conversation,
-            )
-            serializer = MessageSerializer(instance=_message)
-            self.send(
-                text_data=json.dumps(
-                    serializer.data
-                )
-            )
-        else:
-            _message = Message.objects.create(
-                sender=sender,
-                text=message,
-                conversation_id=conversation,
-            )
-            serializer = MessageSerializer(instance=_message)
-            # Send message to WebSocket
-            self.send(
-                text_data=json.dumps(
-                    serializer.data
-                )
-            )
+        sender_id = event["user_id"]  # Используем id пользователя
+        print(f"Sender before message creation: {sender_id}")
+
+        _message = await self.create_message(sender_id, message, conversation)
+
+        serializer = MessageSerializer(instance=_message)
+        await self.send(text_data=json.dumps(serializer.data))
+
+    async def get_conversation(self):
+        return await self.get_conversation_instance()
+
+    async def create_message(self, sender_id, text, conversation):
+        return await self.create_message_instance(sender_id, text, conversation)
+
+    @database_sync_to_async
+    def get_conversation_instance(self):
+        return Conversation.objects.get(id=int(self.room_name))
+
+    @database_sync_to_async
+    def create_message_instance(self, sender_id, text, conversation):
+        return Message.objects.create(
+            sender_id=sender_id,
+            text=text,
+            conversation_id=conversation,
+        )
 
     @database_sync_to_async
     def get_user_from_token(self, token_key):
