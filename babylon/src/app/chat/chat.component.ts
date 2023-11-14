@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
   users: string[] = [];
   messages: string[] = [];
   avatars: string[] = [];
+  usernames: string[] = [];
   isConversation: boolean = false;
   conversationId: number = -1;
 
@@ -29,5 +30,10 @@ export class ChatComponent implements OnInit {
     this.users = this.ChatapiService.getUsers();
     this.messages = this.ChatapiService.getMessages();
     this.avatars = this.ChatapiService.getAvatars();
+    this.usernames = this.ChatapiService.getUsernames();
+  }
+
+  receieState(state: boolean) {
+    this.isConversation = state;
   }
 }

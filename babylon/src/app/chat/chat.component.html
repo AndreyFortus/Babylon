@@ -11,6 +11,6 @@
     </div>
 
     <div class="conversation" *ngIf="isConversation">
-        <app-chat-conversation [user] = "users[conversationId]" [avatar]="avatars[conversationId]"></app-chat-conversation>
+        <app-chat-conversation [user]="users[conversationId]" [avatar]="avatars[conversationId]" [username]="usernames[conversationId]" (dataToParent)="receieState($event)"></app-chat-conversation>
     </div>
 </div>

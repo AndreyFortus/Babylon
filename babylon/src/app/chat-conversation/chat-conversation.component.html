@@ -1,6 +1,6 @@
 <div class="main">
     <div class="person">
-        <button class="back-button"></button>
+        <button class="back-button" (click)="sendConversationState()"></button>
         <div class="image">
             <img src="{{avatar}}">
         </div>
@@ -9,9 +9,14 @@
         </div>
     </div>
     <hr>
-    <div class="messages"></div>
+    <div #messagesContainer class="messages">
+        <div  *ngFor="let message of messages" [ngClass]="{'initiator': message.sender===id, 'receiver': message.sender!=id}">
+            <p class="message-text">{{message.text}}</p>
+            <p class="timestamp">{{message.timestamp}}</p>
+        </div>
+    </div>
     <div class="message-input">
-        <input type="text" placeholder="Type here">
-        <button></button>
+        <input type="text" placeholder="Type here" [(ngModel)]="message">
+        <button (click)="sendMessage()"></button>
     </div>
 </div>

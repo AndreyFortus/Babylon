@@ -10,19 +10,22 @@
 .person {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
     gap: 30px;
+    height: 10%;
+    text-align: center;
 }
 
 .image {
-    width: 52px;
-    height: 52px;
+    display: flex;
+    max-height: 100%;
     border-radius: 50%;
     overflow: hidden;
+    align-items: center;
+    margin: 1%;
 }
 
 .image img {
-    max-height: 100%;
+    height: 100%;
 }
 
 .human-info {
@@ -38,19 +41,21 @@
   
 
 .messages {
-    min-height: 77%;
+    height: 80%;
     overflow-y: scroll;
 }
 
 .message-input {
     display: flex;
     flex-direction: row;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
+    height: 10%;
 }
 
 .message-input input {
     width: 90%;
+    height: 100%;
     border: none;
-    height: 32px;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     padding-left: 10px;
@@ -62,6 +67,7 @@
 
 .message-input button {
     width: 10%;
+    height: 100%;
     border: none;
     background: url('/assets/img/chat/send.png') no-repeat center center, rgb(255, 255, 255);
     background-size: 20px 20px;
@@ -70,12 +76,45 @@
 .message-input button:active {
     background: url('/assets/img/chat/send.png') no-repeat center center, rgb(222, 222, 222);
     background-size: 20px 20px;
+}
+
+.initiator, .receiver {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .initiator {
+    margin-left: auto;
+    margin-right: 0;
+    word-wrap: break-word;
+    background: #e6cbae;
+  }
+  
+  .reciever {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  
+  .message-text, .timestamp {
+    margin: 5px;
+  }
+  
+  .timestamp {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 10px;
+    margin-right: 5px;
+    margin-left: auto;
   }
 
 hr {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.5);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
 }
 
 ::-webkit-scrollbar {
