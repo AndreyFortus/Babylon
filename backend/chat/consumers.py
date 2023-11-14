@@ -32,9 +32,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # parse the json data into dictionary object
         text_data_json = json.loads(text_data)
 
-        # Send message to room group
-        chat_type = {"type": "chat_message", "user_id": self.scope["user"].id}
-        return_dict = {**chat_type, **text_data_json}
+        sender_id = self.scope["user"].id
+        conversation = await self.get_conversation()
+
+        # Create the message and save it to the database
+        _message = await self.create_message(sender_id, text_data_json["message"], conversation)
+        serializer = MessageSerializer(instance=_message)
+
+        # Send the message to the room group
+        chat_type = {"type": "chat.message", "user_id": sender_id}
+        return_dict = {**chat_type, **text_data_json, "message": serializer.data}
 
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -42,17 +49,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def chat_message(self, event):
-        text_data_json = event.copy()
-        text_data_json.pop("type")
-        message = text_data_json["message"]
-
-        conversation = await self.get_conversation()
-
-        sender_id = event["user_id"]
-
-        _message = await self.create_message(sender_id, message, conversation)
-        serializer = MessageSerializer(instance=_message)
-        await self.send(text_data=json.dumps(serializer.data))
+        # Отправка сообщения всем клиентам в группе
+        message_data = {
+            "id": event["message"]["id"],
+            "text": event["message"]["text"],
+            "timestamp": event["message"]["timestamp"],
+            "sender": str(event["message"]["sender"]),  # Преобразование sender_id в строку
+        }
+        await self.send(text_data=json.dumps(message_data))
 
     async def get_conversation(self):
         return await self.get_conversation_instance()
