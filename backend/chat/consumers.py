@@ -50,12 +50,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         sender_id = event["user_id"]
 
-        # Check if sender is in the group
-        if sender_id != self.scope["user"].id:
-            _message = await self.create_message(sender_id, message, conversation)
-
-            serializer = MessageSerializer(instance=_message)
-            await self.send(text_data=json.dumps(serializer.data))
+        _message = await self.create_message(sender_id, message, conversation)
+        serializer = MessageSerializer(instance=_message)
+        await self.send(text_data=json.dumps(serializer.data))
 
     async def get_conversation(self):
         return await self.get_conversation_instance()
