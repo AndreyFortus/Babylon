@@ -12,7 +12,7 @@
     <div #messagesContainer class="messages">
         <div  *ngFor="let message of messages" [ngClass]="{'initiator': message.sender===id, 'receiver': message.sender!=id}">
             <p class="message-text">{{message.text}}</p>
-            <p class="timestamp">{{message.timestamp}}</p>
+            <p class="timestamp">{{message.convertedTimestamp}}</p>
         </div>
     </div>
     <div class="message-input">

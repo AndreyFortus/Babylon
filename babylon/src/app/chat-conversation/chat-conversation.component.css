@@ -26,11 +26,14 @@
 
 .image img {
     height: 100%;
+    object-fit: cover;
 }
 
 .human-info {
     max-width: 70%;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .back-button {

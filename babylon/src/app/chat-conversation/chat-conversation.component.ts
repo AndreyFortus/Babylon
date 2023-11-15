@@ -33,28 +33,19 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     console.log('init')
-    this.googleService.id$.subscribe(id => {this.id = id;});
+    this.googleService.id$.subscribe(id => {this.id = id; console.log(this.id)});
     this.chatService.startConversation(this.username).subscribe(result => {
       console.log('chat with '+this.username);
       const { conversationId, messages } = result;
       console.log(conversationId);
       this.messages = messages.reverse();
       this.conversationId = conversationId;
-      // this.websocketService.connect(this.wsUrl+conversationId+'/', this.googleService.getAuthToken()).subscribe(
-      //   (message) => {
-      //     console.log(message)
-      //   },
-      //   (error) => {
-      //     console.error('Error in WebSocket connection:', error);
-      //   }
-      // );
-
 
       this.websocketService.connect(this.wsUrl+conversationId+'/', this.googleService.getAuthToken());
       this.messageSubscription = this.websocketService.receiveMessage().subscribe(
         (message) => {
           console.log('Received message:', message);
-          this.messages.push(new Message(message.id, message.text, message.timestamp, message.sender));
+          this.messages.push(new Message(message.id, message.text, message.timestamp, parseInt(message.sender)));
           // Обработка полученного сообщения
         },
         (error) => {

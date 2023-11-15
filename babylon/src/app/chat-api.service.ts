@@ -37,7 +37,7 @@ export class ChatApiService {
   }
 
   getUsernames(): string[] {
-    let usernames = ['dwouijeqmn', 'mbmgnivoru', 'sotpkmurfy', 'ybrhblyybo'];
+    let usernames = ['dwouijeqmn', 'tevmsgsiag', 'sotpkmurfy', 'ybrhblyybo'];
     return usernames;
   }
 
@@ -69,7 +69,7 @@ export class ChatApiService {
         map((response: any) => {
           const messages: Message[] = [];
           for (const message of response.message_set) {
-            messages.push(new Message(message.id, message.text, message.timestamp, message.sender));
+            messages.push(new Message(message.id, message.text, message.timestamp, parseInt(message.sender)));
           }
           return messages;
         }),
@@ -87,67 +87,6 @@ export class ChatApiService {
   }
 }
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class WebsocketService {
-//   private socket!: WebSocket;
-//   private messageSubject: Subject<MessageEvent>;
-
-//   constructor() {
-//     this.messageSubject = new Subject<MessageEvent>();
-//   }
-
-//   connect(wsUrl: string, token: string): Observable<MessageEvent> {
-//     this.socket = new WebSocket(`${wsUrl}?protocol=Token%+${token}`);
-
-//     this.socket.onopen = (event) => {
-//       console.log('WebSocket connection opened:', event);
-//     };
-
-//     this.socket.onmessage = (event) => {
-//       console.log('WebSocket message received:', event);
-//       this.messageSubject.next(event);
-//     };
-
-//     this.socket.onclose = (event) => {
-//       console.log('WebSocket connection closed:', event);
-//     };
-
-//     this.socket.onerror = (event) => {
-//       console.error('WebSocket error:', event);
-
-//       // Дополнительная информация об ошибке
-//       if (event instanceof Event) {
-//         console.error('Event type:', event.type);
-//       }
-
-//       if (event.target instanceof WebSocket) {
-//         console.error('Ready state:', event.target.readyState);
-//       }
-
-//       if (event instanceof CloseEvent) {
-//         console.log('Close code:', event.code);
-//         console.log('Close reason:', event.reason);
-//         console.log('Was clean:', event.wasClean);
-//       }
-//     };
-
-//     return this.messageSubject.asObservable();
-//   }
-
-//   send(message: any): void {
-//     if (this.socket.readyState === WebSocket.OPEN) {
-//       this.socket.send(JSON.stringify(message));
-//     } else {
-//       console.error('WebSocket is not open. Message not sent.');
-//     }
-//   }
-
-//   close(): void {
-//     this.socket.close();
-//   }
-// }
 
 @Injectable({
   providedIn: 'root',
@@ -201,12 +140,14 @@ export class Message {
   id: number = 0;
   text: string = '';
   timestamp: string = '';
+  convertedTimestamp: string = '';
   sender: number = 0;
 
   constructor(id: number, text: string, timestamp: string, sender: number) {
     this.id = id;
     this.text = text;
-    this.timestamp = this.getFormattedTimestamp(timestamp);
+    this.timestamp = timestamp;
+    this.convertedTimestamp = this.getFormattedTimestamp(timestamp);
     this.sender = sender;
   }
 
@@ -216,7 +157,11 @@ export class Message {
     return datePipe.transform(date, 'yyyy-MM-dd HH:mm') || ''; // Обрабатываем ситуацию, когда форматирование не удалось
   }
 
-  
+  getTime() {
+    const date = new Date(this.timestamp);
+    const datePipe = new DatePipe('en-US');
+    return parseFloat(datePipe.transform(date, 'ss.SSS') || '');
+  }
 
 }
 

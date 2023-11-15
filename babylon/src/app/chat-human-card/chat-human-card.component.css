@@ -7,6 +7,7 @@
     padding-left: 10px;
     padding-right: 20px;
     border-radius: 30px;
+    max-width: 30vw;
 }
 
 .human:hover {
@@ -27,7 +28,9 @@
 .human-info {
     padding-left: 20px;
     max-width: 70%;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 p {
