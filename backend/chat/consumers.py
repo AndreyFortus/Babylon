@@ -117,11 +117,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
             text=text,
             conversation_id=conversation,
         )
-
-    @database_sync_to_async
-    def get_user_from_token(self, token_key):
-        try:
-            token = Token.objects.get(key=token_key)
-            return token.user
-        except Token.DoesNotExist:
-            return None
