@@ -1,5 +1,6 @@
 from django.db.models import Q
 from rest_framework.authtoken.admin import User
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -22,9 +23,6 @@ def start_convo(request):
     if not participant_username:
         return Response({'message': 'Invalid request data'}, status=400)
 
-    if not participant_username:
-        return Response({'message': 'Invalid request data'}, status=400)
-
     participant = get_object_or_404(User, username=participant_username)
 
     conversation = Conversation.objects.filter(Q(initiator=request.user, receiver=participant) |
@@ -34,7 +32,7 @@ def start_convo(request):
         return Response({'conversation_id': conversation.id})
     else:
         conversation = Conversation.objects.create(initiator=request.user, receiver=participant)
-        serializer = ConversationSerializer(instance=conversation)
+        serializer = ConversationSerializer(instance=conversation, context={'request': request})
         return Response(serializer.data, status=201)
 
 @api_view(['GET'])
@@ -48,8 +46,18 @@ def get_conversation(request, convo_id):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def conversations(request):
-    conversation_list = Conversation.objects.filter(Q(initiator=request.user) |
-                                                    Q(receiver=request.user))
-    serializer = ConversationListSerializer(instance=conversation_list, many=True)
+    authorization_header = request.headers.get('Authorization', '')
+    try:
+        token_key = authorization_header.split(' ')[1]
+        token = Token.objects.get(key=token_key)
+        user_id = token.user.id
+    except (IndexError, Token.DoesNotExist):
+        return Response({"error": "Invalid token"}, status=400)
+
+    conversation_list = Conversation.objects.filter(Q(initiator_id=user_id) | Q(receiver_id=user_id))
+
+    serializer = ConversationListSerializer(instance=conversation_list, context={'request': request}, many=True)
     return Response(serializer.data)
