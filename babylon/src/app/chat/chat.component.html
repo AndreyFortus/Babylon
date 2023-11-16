@@ -5,12 +5,12 @@
     <div class="chat" *ngIf="!isConversation">
         <ul>
             <li *ngFor="let user of users; let i = index">
-                <app-chat-human-card (click)="isConversation=true; conversationId=i" [user] = "user" [message]="messages[i]" [avatar]="avatars[i]"></app-chat-human-card>
+                <app-chat-human-card (click)="isConversation=true; conversationId=i" [user]="user" [message]="messages[i]" [avatar]="avatars[i]"></app-chat-human-card>
             </li>
         </ul>
     </div>
 
     <div class="conversation" *ngIf="isConversation">
-        <app-chat-conversation [user]="users[conversationId]" [avatar]="avatars[conversationId]" [username]="usernames[conversationId]" (dataToParent)="receieState($event)"></app-chat-conversation>
+        <app-chat-conversation [user]="users[conversationId]" [avatar]="avatars[conversationId]" [username]="usernames[conversationId]" (dataToParent)="receieState($event)" (lastMessage)="receiveMesage($event)"></app-chat-conversation>
     </div>
 </div>

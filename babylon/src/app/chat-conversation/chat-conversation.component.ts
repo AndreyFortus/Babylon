@@ -19,6 +19,8 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
 
   @Output()
   dataToParent = new EventEmitter<boolean>();
+  @Output()
+  lastMessage = new EventEmitter<string>();
 
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
@@ -46,6 +48,7 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
         (message) => {
           console.log('Received message:', message);
           this.messages.push(new Message(message.id, message.text, message.timestamp, parseInt(message.sender)));
+          this.sendLastMessage(message.text);
           // Обработка полученного сообщения
         },
         (error) => {
@@ -70,12 +73,18 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
   }
 
   sendMessage() {
-    this.websocketService.sendMessage(this.message)
+    this.websocketService.sendMessage(this.message);
+    this.sendLastMessage(this.message);
     this.message = '';
   }
 
   sendConversationState() {
     this.dataToParent.emit(false);
+  }
+
+  sendLastMessage(message: string) {
+    console.log('last message', message);
+    this.lastMessage.emit(message);
   }
 
   ngOnDestroy() {

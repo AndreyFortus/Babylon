@@ -11,34 +11,61 @@ import { DatePipe } from '@angular/common';
 export class ChatApiService {
   private url = 'http://127.0.0.1:8000/api/conversations/'
   private username = '';
+  private users:string[] = [];
+  private messages:string[] = [];
+  private usernames:string[] = [];
+  private avatars:string[] = [];
 
   constructor(private googleService: GoogleAuthService, private http: HttpClient) {
     this.googleService.username$.subscribe(username => {
           this.username = username;
         });
+    googleService.loggedIn$.subscribe(loggedIn => {
+      if (loggedIn){
+        this.getUserList();
+      }
+    });
+  }
+
+  private getUserList() { 
+    this.http.get<any[]>(this.url, this.getHeaders()).subscribe((response: any[]) => {
+      console.log('asdasdasdas', response);
+      for (let user of response) {
+        if (this.username === user.initiator.username) {
+        this.users.push(user.receiver.first_name+' '+user.receiver.last_name);
+        this.usernames.push(user.receiver.username);
+        this.avatars.push(user.receiver.profile_picture);
+        } else if (this.username === user.receiver.username) {
+          this.users.push(user.initiator.first_name+' '+user.initiator.last_name);
+          this.usernames.push(user.initiator.username);
+          this.avatars.push(user.initiator.profile_picture);
+        }
+        this.messages.push(user.last_message ? user.last_message.text : '');
+      }
+    });
   }
 
   getUsers(): string[] {
     // let users: string[] = ["Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname"]
-    let users: string[] = ["Sarah Johnson", "Alex Smith", "Олександр Іваненко"]
-    return users;
+    // let users: string[] = ["Sarah Johnson", "Alex Smith", "Олександр Іваненко"]
+    return this.users;
   }
 
   getMessages(): string[] {
     // let messages: string[] = ["Message", "Message", "Message", "Message", "Message", "Message", "Message", "Message", ]
-    let messages: string[] = ["Hi there! I just completed a challenging grammar quiz...", "Hey, I'm stuck on a vocabulary exercise...", "Привіт, зараз проходжу 3 урок та..."]
-    return messages;
+    // let messages: string[] = ["Hi there! I just completed a challenging grammar quiz...", "Hey, I'm stuck on a vocabulary exercise...", "Привіт, зараз проходжу 3 урок та..."]
+    return this.messages;
   }
 
   getAvatars(): string[] {
     // let avatars: string[] = ["https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", "https://th-thumbnailer.cdn-si-edu.com/5V-xOO-B6H14VTVruDbqnMvmmE0=/fit-in/1072x0/filters:focal(342x433:343x434)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/e4/af/e4afdbe6-59c0-4a6b-8112-8b30e274d9a0/2009-49519-h-floresiensis-jgurche_web.jpg", ]
-    let avatars: string[] = ["https://assets.petco.com/petco/image/upload/f_auto,q_auto/135690-Center-1", "https://hips.hearstapps.com/hmg-prod/images/domestic-cat-lies-in-a-basket-with-a-knitted-royalty-free-image-1592337336.jpg?crop=0.670xw:1.00xh;0.247xw,0&resize=1200:*", "https://singersroom.com/wp-content/uploads/2023/02/17-Best-Songs-About-the-Sun-and-Sunshine-to-Brighten-Your-Day-scaled.jpg"]
-    return avatars;
+    // let avatars: string[] = ["https://assets.petco.com/petco/image/upload/f_auto,q_auto/135690-Center-1", "https://hips.hearstapps.com/hmg-prod/images/domestic-cat-lies-in-a-basket-with-a-knitted-royalty-free-image-1592337336.jpg?crop=0.670xw:1.00xh;0.247xw,0&resize=1200:*", "https://singersroom.com/wp-content/uploads/2023/02/17-Best-Songs-About-the-Sun-and-Sunshine-to-Brighten-Your-Day-scaled.jpg"]
+    return this.avatars;
   }
 
   getUsernames(): string[] {
-    let usernames = ['dwouijeqmn', 'tevmsgsiag', 'sotpkmurfy', 'ybrhblyybo'];
-    return usernames;
+    // let usernames = ['dwouijeqmn', 'tevmsgsiag', 'sotpkmurfy', 'ybrhblyybo'];
+    return this.usernames;
   }
 
   startConversation(username: string): Observable<{ conversationId: number, messages: Message[] }> {

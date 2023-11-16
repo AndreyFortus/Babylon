@@ -36,4 +36,8 @@ export class ChatComponent implements OnInit {
   receieState(state: boolean) {
     this.isConversation = state;
   }
+
+  receiveMesage(message: string) {
+    this.messages[this.conversationId] = message;
+  }
 }
