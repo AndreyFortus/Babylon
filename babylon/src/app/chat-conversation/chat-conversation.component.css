@@ -113,6 +113,19 @@
     margin-left: auto;
   }
 
+  .name-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.username {
+    font-size: 10px;
+    align-self: center;
+    color: rgb(20, 20, 20);
+}
+
 hr {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.5);

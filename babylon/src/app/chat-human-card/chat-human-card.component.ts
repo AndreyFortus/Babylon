@@ -12,4 +12,8 @@ export class ChatHumanCardComponent {
   message!: string;
   @Input()
   avatar!: string;
+  @Input()
+  username!: string;
+  @Input()
+  isNewMessage!: boolean;
 }

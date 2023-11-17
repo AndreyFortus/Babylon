@@ -33,6 +33,27 @@
     text-overflow: ellipsis; 
 }
 
+.name-container, .message-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.username {
+    font-size: 10px;
+    align-self: center;
+    color: rgb(20, 20, 20);
+}
+
+.notification {
+    width: 5px;
+    height: 5px;
+    background: #613010;
+    border-radius: 50%;
+    align-self: center;
+}
+
 p {
     font-size: 15px;
     font-family: 'Montserrat', sans-serif;

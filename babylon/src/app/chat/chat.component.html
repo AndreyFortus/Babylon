@@ -5,7 +5,7 @@
     <div class="chat" *ngIf="!isConversation">
         <ul>
             <li *ngFor="let user of users; let i = index">
-                <app-chat-human-card (click)="isConversation=true; conversationId=i" [user]="user" [message]="messages[i]" [avatar]="avatars[i]"></app-chat-human-card>
+                <app-chat-human-card (click)="isConversation=true; conversationId=i" [isNewMessage]="newMessages[i]" [user]="user" [message]="messages[i]" [avatar]="avatars[i]" [username]="usernames[i]"></app-chat-human-card>
             </li>
         </ul>
     </div>

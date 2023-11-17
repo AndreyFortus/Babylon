@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoogleAuthService } from './google-auth.service';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, mergeMap, catchError, map, of, Subject } from 'rxjs';
+import { Observable, mergeMap, catchError, map, of, Subject, interval, takeUntil } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Injectable({
@@ -16,6 +16,10 @@ export class ChatApiService {
   private usernames:string[] = [];
   private avatars:string[] = [];
 
+  private prevMessages: string[] = [];
+
+  private userListSubject = new Subject<boolean[]>();
+
   constructor(private googleService: GoogleAuthService, private http: HttpClient) {
     this.googleService.username$.subscribe(username => {
           this.username = username;
@@ -23,13 +27,21 @@ export class ChatApiService {
     googleService.loggedIn$.subscribe(loggedIn => {
       if (loggedIn){
         this.getUserList();
+        interval(10000).subscribe(() => {
+          this.getUserList();
+        });
       }
     });
   }
 
-  private getUserList() { 
+  private getUserList() {
+    this.prevMessages = this.messages;
+    
+    this.users = [];
+    this.usernames = [];
+    this.avatars = [];
+    this.messages = [];
     this.http.get<any[]>(this.url, this.getHeaders()).subscribe((response: any[]) => {
-      console.log('asdasdasdas', response);
       for (let user of response) {
         if (this.username === user.initiator.username) {
         this.users.push(user.receiver.first_name+' '+user.receiver.last_name);
@@ -42,7 +54,48 @@ export class ChatApiService {
         }
         this.messages.push(user.last_message ? user.last_message.text : '');
       }
+
+      let newMessages = this.getNewMessages(this.prevMessages, this.messages);
+      if (!this.isFalseArray(newMessages) || this.prevMessages.length == 0) {
+        console.log('new message update!!!');
+        this.setNewMessages(newMessages);
+      }
     });
+  }
+
+  getNewMessagesUpdates() {
+    return this.userListSubject.asObservable();
+  }
+
+  setNewMessages(newMessages: boolean[]) {
+    this.userListSubject.next(newMessages);
+  }
+
+  private getNewMessages(arr1: any[], arr2: any[]) {
+    let newMessages: boolean[] = [];
+    for (let i = 0; i<arr2.length; i++) {
+      newMessages[i] = false;
+    }
+
+    for (let i = 0; i < arr2.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        newMessages[i] = true;
+      }
+    }
+
+    return newMessages;
+
+  }
+
+  private isFalseArray(arr: boolean[]) {
+    let result = true;
+    for (let elem of arr) {
+      if (elem) {
+        result = false;
+      }
+    }
+    console.log('is false array', result);
+    return result;
   }
 
   getUsers(): string[] {

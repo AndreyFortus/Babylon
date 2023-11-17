@@ -3,7 +3,13 @@
         <img src="{{avatar}}" referrerpolicy="no-referrer">
     </div>
     <div class="human-info">
-        <p>{{user}}</p>
-        <p>{{message}}</p>
+        <div class="name-container">
+            <p>{{user}}</p>
+            <p class="username">({{username}})</p>
+        </div>
+        <div class="message-container">
+            <p>{{message}}</p>
+            <div *ngIf="isNewMessage" class="notification"></div>
+        </div>
     </div>
 </div>
