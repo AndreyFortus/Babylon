@@ -14,9 +14,21 @@
         <div class="spacer"></div>
         <div class="google">
             <asl-google-signin-button *ngIf="!loggedIn" type='standard' size='large' text="signin_with"></asl-google-signin-button>
-            <p *ngIf="loggedIn">{{username}}</p>
+            <p *ngIf="loggedIn">{{name}}</p>
             <img *ngIf="loggedIn" src="{{ photoUrl }} " referrerpolicy="no-referrer">
-            <button *ngIf="loggedIn" (click)="signOut()" class="signout"></button>
+            <button *ngIf="loggedIn" (click)="showInfo=!showInfo" class="show-info-button"></button>
+            <div class="user-info" *ngIf="showInfo">
+                <div class="info-block">
+                  <p class="info-text">Level </p>
+                  <p class="info-text right-align">{{level}}</p>
+                </div>
+                <div class="info-block">
+                  <p class="info-text">username </p>
+                  <p class="info-text right-align">{{username}}</p>
+                </div> 
+                <hr>
+                <button *ngIf="loggedIn" (click)="signOut()" class="signout">Sign Out</button>
+            </div>
         </div>
     </div>
 </header>
