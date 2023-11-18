@@ -36,10 +36,15 @@ def get_conversation(request, convo_id):
         return Response({'message': 'Conversation does not exist'}, status=404)
 
     serializer = ConversationSerializer(instance=conversation, context={'request': request})
-    return Response(serializer.data)
+    data = serializer.data
+
+    if 'last_message' in data and data['last_message']:
+        data['last_message']['is_read'] = conversation.message_set.first().is_read
+
+    return Response(data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def conversations(request):
@@ -52,6 +57,21 @@ def conversations(request):
         return Response({"error": "Invalid token"}, status=400)
 
     conversation_list = Conversation.objects.filter(Q(initiator_id=user_id) | Q(receiver_id=user_id))
+
+    if request.method == 'POST':
+        # Update is_read field
+        conversation_id = request.data.get('conversation_id')
+        is_read = request.data.get('is_read')
+
+        if conversation_id and is_read in [True, False]:
+            conversation = Conversation.objects.get(id=conversation_id)
+            last_message = conversation.message_set.first()
+
+            if last_message:
+                last_message.is_read = is_read
+                last_message.save()
+
+                return Response({'message': 'is_read updated successfully'})
 
     serializer = ConversationListSerializer(instance=conversation_list, context={'request': request}, many=True)
     return Response(serializer.data)

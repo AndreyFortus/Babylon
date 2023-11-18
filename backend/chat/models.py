@@ -18,6 +18,7 @@ class Message(models.Model):
     text = models.CharField(max_length=200, blank=True)
     conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE,)
     timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)  # Add this line
 
     class Meta:
         ordering = ('-timestamp',)
