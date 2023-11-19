@@ -58,6 +58,29 @@ input:hover {
     height: 95vh;
 }
 
+.search-result {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    height: 40px;
+    z-index: 999;
+}
+
+.start-chatting-text {
+    margin: auto 5px auto auto;
+}
+
+.search-text {
+    margin: auto auto auto 5px;
+}
+
+.red {
+    color: red;
+}
+
  ::-webkit-scrollbar {
     width: 10px;
     overflow-y: scroll;

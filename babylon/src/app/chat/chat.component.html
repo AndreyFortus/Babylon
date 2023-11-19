@@ -1,6 +1,11 @@
 <div *ngIf="isLoggedIn" class="main">
-    <div class="search-bar" *ngIf="!isConversation" [(ngModel)]="searchBar">
-        <input type="text">
+    <div class="search-bar" *ngIf="!isConversation">
+        <input type="text" maxlength="10" [(ngModel)]="searchBar">
+        <div class="search-result" *ngIf="searchBar.length > 0">
+            <p class="search-text">{{searchBar}}</p>
+            <p class="start-chatting-text" *ngIf="searchBar.length == 10">start chatting</p>
+            <p class="start-chatting-text red" *ngIf="searchBar.length < 10">must be 10 characters</p>
+        </div>
     </div>
     <div class="chat" *ngIf="!isConversation">
         <ul>

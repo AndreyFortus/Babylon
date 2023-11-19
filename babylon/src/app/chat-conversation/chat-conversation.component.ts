@@ -73,9 +73,11 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
   }
 
   sendMessage() {
-    this.websocketService.sendMessage(this.message);
-    this.sendLastMessage(this.message);
-    this.message = '';
+    if (this.message != ''){
+      this.websocketService.sendMessage(this.message);
+      this.sendLastMessage(this.message);
+      this.message = '';
+    }
   }
 
   sendConversationState() {
@@ -89,6 +91,12 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.websocketService.closeConnection();
+    if (this.messages.length > 0){
+      if (this.messages[this.messages.length-1].sender != this.id) {
+        console.log()
+        this.chatService.updateReadStatus(this.conversationId, true);
+      }
+    }
   }
 
 }

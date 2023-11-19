@@ -15,6 +15,8 @@ export class ChatApiService {
   private messages:string[] = [];
   private usernames:string[] = [];
   private avatars:string[] = [];
+  private newMessages: boolean[] = [];
+  private id!: number;
 
   private prevMessages: string[] = [];
 
@@ -24,6 +26,9 @@ export class ChatApiService {
     this.googleService.username$.subscribe(username => {
           this.username = username;
         });
+    this.googleService.id$.subscribe(id => {
+          this.id = id;
+    });
     googleService.loggedIn$.subscribe(loggedIn => {
       if (loggedIn){
         this.getUserList();
@@ -35,13 +40,14 @@ export class ChatApiService {
   }
 
   private getUserList() {
-    this.prevMessages = this.messages;
-    
     this.users = [];
     this.usernames = [];
     this.avatars = [];
     this.messages = [];
+    this.newMessages = [];
+    
     this.http.get<any[]>(this.url, this.getHeaders()).subscribe((response: any[]) => {
+      console.log(response);
       for (let user of response) {
         if (this.username === user.initiator.username) {
         this.users.push(user.receiver.first_name+' '+user.receiver.last_name);
@@ -52,50 +58,36 @@ export class ChatApiService {
           this.usernames.push(user.initiator.username);
           this.avatars.push(user.initiator.profile_picture);
         }
-        this.messages.push(user.last_message ? user.last_message.text : '');
+
+        if (user.last_message) {
+          this.messages.push(user.last_message.text);
+          this.newMessages.push(user.last_message.sender != this.id ? user.last_message.is_read : true);
+        }
+        else {
+          this.messages.push('');
+          this.newMessages.push(true);
+        }
+        // this.messages.push(user.last_message ? user.last_message.text : '');
+        // console.log(this.id, user.last_message.sender);
+        // this.newMessages.push((user.last_message != null && user.last_message.sender != this.id) ? user.last_message.is_read : true);
       }
 
-      let newMessages = this.getNewMessages(this.prevMessages, this.messages);
-      if (!this.isFalseArray(newMessages) || this.prevMessages.length == 0) {
-        console.log('new message update!!!');
-        this.setNewMessages(newMessages);
-      }
+      this.setNewMessages(this.newMessages);
     });
   }
 
   getNewMessagesUpdates() {
+    this.getUserList();
     return this.userListSubject.asObservable();
   }
 
-  setNewMessages(newMessages: boolean[]) {
+  private setNewMessages(newMessages: boolean[]) {
     this.userListSubject.next(newMessages);
   }
 
-  private getNewMessages(arr1: any[], arr2: any[]) {
-    let newMessages: boolean[] = [];
-    for (let i = 0; i<arr2.length; i++) {
-      newMessages[i] = false;
-    }
-
-    for (let i = 0; i < arr2.length; i++) {
-      if (arr1[i] !== arr2[i]) {
-        newMessages[i] = true;
-      }
-    }
-
-    return newMessages;
-
-  }
-
-  private isFalseArray(arr: boolean[]) {
-    let result = true;
-    for (let elem of arr) {
-      if (elem) {
-        result = false;
-      }
-    }
-    console.log('is false array', result);
-    return result;
+  updateReadStatus(id: number, status: boolean) {
+    this.http.post(this.url, {"conversation_id": id, "is_read": status}, this.getHeaders()).subscribe((response) => {console.log('is_read update', response)});
+    this.getUserList();
   }
 
   getUsers(): string[] {
