@@ -1,10 +1,10 @@
 <div *ngIf="isLoggedIn" class="main">
     <div class="search-bar" *ngIf="!isConversation">
         <input type="text" maxlength="10" [(ngModel)]="searchBar">
-        <div class="search-result" *ngIf="searchBar.length > 0" (click)="startChat()">
+        <div class="search-result" *ngIf="searchBar.length > 0 || searchBar=='admin'" (click)="startChat()">
             <p class="search-text">{{searchBar}}</p>
-            <p class="start-chatting-text" *ngIf="searchBar.length == 10 && searchBar!=username && !isWrondUsername">start chatting</p>
-            <p class="start-chatting-text red" *ngIf="searchBar.length < 10">must be 10 characters</p>
+            <p class="start-chatting-text" *ngIf="(searchBar.length == 10 && searchBar!=username && !isWrondUsername) || searchBar=='admin'">start chatting</p>
+            <p class="start-chatting-text red" *ngIf="searchBar.length < 10 && searchBar!='admin'">must be 10 characters</p>
             <p class="start-chatting-text red" *ngIf="searchBar==username">just look in the mirror</p>
             <p class="start-chatting-text red" *ngIf="isWrondUsername">user doesn`t exist</p>
         </div>

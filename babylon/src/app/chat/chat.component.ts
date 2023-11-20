@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit {
 
   startChat() {
     
-    if (this.searchBar.length == 10 && this.searchBar != this.username){
+    if ((this.searchBar.length == 10 && this.searchBar != this.username || this.searchBar=='admin')){
       this.ChatapiService.startConversation(this.searchBar).subscribe(
         result => {
           // Обработка успешного старта чата

@@ -62,19 +62,25 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
   }
 
   setCompanion(id: number) {
-    this.chatService.getCompanion(id).subscribe(response => {
-      console.log('sdasdasd' ,response);
-      if (this.id == response.initiator.id) {
-        this.user = `${response.receiver.first_name} ${response.receiver.last_name}`;
-        this.avatar = response.receiver.profile_picture;
-        // this.username = response.receiver.username;
-      }
-      else if (this.id == response.receiver.id) {
-        this.user = `${response.initiator.first_name} ${response.initiator.last_name}`;
-        this.avatar = response.initiator.profile_picture;
-        // this.username = response.initiator.username;
-      }
-    })
+    if (this.username == 'admin') {
+      this.user = 'Administrator';
+      this.avatar = 'https://icons.veryicon.com/png/o/commerce-shopping/wangdianbao-icon-monochrome/administrators-6.png'
+    }
+    else {
+      this.chatService.getCompanion(id).subscribe(response => {
+        console.log('sdasdasd' ,response);
+        if (this.id == response.initiator.id) {
+          this.user = `${response.receiver.first_name} ${response.receiver.last_name}`;
+          this.avatar = response.receiver.profile_picture;
+          // this.username = response.receiver.username;
+        }
+        else if (this.id == response.receiver.id) {
+          this.user = `${response.initiator.first_name} ${response.initiator.last_name}`;
+          this.avatar = response.initiator.profile_picture;
+          // this.username = response.initiator.username;
+        }
+      })
+  }
   }
 
   ngAfterViewChecked() {
