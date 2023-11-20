@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class ChatConversationComponent implements OnInit, OnDestroy{
 
-  @Input()
+  // @Input()
   user!: string;
-  @Input()
+  // @Input()
   avatar!: string;
   @Input()
   username!: string;
@@ -42,6 +42,7 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
       console.log(conversationId);
       this.messages = messages.reverse();
       this.conversationId = conversationId;
+      this.setCompanion(this.conversationId);
 
       this.websocketService.connect(this.wsUrl+conversationId+'/', this.googleService.getAuthToken());
       this.messageSubscription = this.websocketService.receiveMessage().subscribe(
@@ -58,6 +59,22 @@ export class ChatConversationComponent implements OnInit, OnDestroy{
       );
 
     });
+  }
+
+  setCompanion(id: number) {
+    this.chatService.getCompanion(id).subscribe(response => {
+      console.log('sdasdasd' ,response);
+      if (this.id == response.initiator.id) {
+        this.user = `${response.receiver.first_name} ${response.receiver.last_name}`;
+        this.avatar = response.receiver.profile_picture;
+        // this.username = response.receiver.username;
+      }
+      else if (this.id == response.receiver.id) {
+        this.user = `${response.initiator.first_name} ${response.initiator.last_name}`;
+        this.avatar = response.initiator.profile_picture;
+        // this.username = response.initiator.username;
+      }
+    })
   }
 
   ngAfterViewChecked() {

@@ -11,11 +11,13 @@ export class ChatComponent implements OnInit {
   
   
   isLoggedIn: boolean = false;
+  username!: string;
   private ngUnsubscribe = new Subject();users: string[] = [];
   messages: string[] = [];
   avatars: string[] = [];
   usernames: string[] = [];
   isConversation: boolean = false;
+  isWrondUsername: boolean = false;
   conversationId: number = -1;
   newMessages: boolean[] = [];
   searchBar: string = '';
@@ -24,6 +26,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.googleService.loggedIn$.subscribe(loggedIn => {this.isLoggedIn = loggedIn});
+    this.googleService.username$.subscribe(username => {this.username = username});
     this.ChatapiService.getNewMessagesUpdates()
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((data) => {
@@ -35,6 +38,38 @@ export class ChatComponent implements OnInit {
         this.avatars = this.ChatapiService.getAvatars();
         this.usernames = this.ChatapiService.getUsernames();
       });
+  }
+
+  startChat() {
+    
+    if (this.searchBar.length == 10 && this.searchBar != this.username){
+      this.ChatapiService.startConversation(this.searchBar).subscribe(
+        result => {
+          // Обработка успешного старта чата
+          this.usernames.push(this.searchBar);
+          this.conversationId = this.usernames.length-1;
+          this.isConversation = true;
+          this.searchBar = '';
+        },
+        error => {
+          // Обработка ошибок
+          if (error.status === 404) {
+            // Ошибка 404: пользователь не найден
+            console.error('User not found in the database');
+            this.isWrondUsername = true;
+            setTimeout(() => this.isWrondUsername=false, 1000);
+          } else {
+            // Другие ошибки
+            console.error('Error starting conversation:', error);
+          }
+          // Не устанавливать isConversation в true в случае ошибки
+        }
+      );
+      // this.usernames.push(this.searchBar);
+      // this.conversationId = this.usernames.length-1;
+      // this.isConversation = true;
+      // this.searchBar = '';
+    }
   }
 
   receieState(state: boolean) {

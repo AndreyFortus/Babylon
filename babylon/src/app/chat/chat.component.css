@@ -69,6 +69,10 @@ input:hover {
     z-index: 999;
 }
 
+.search-result:hover {
+    background-color: rgb(240, 240, 240);
+}
+
 .start-chatting-text {
     margin: auto 5px auto auto;
 }

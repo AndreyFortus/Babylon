@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoogleAuthService } from './google-auth.service';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, mergeMap, catchError, map, of, Subject, interval, takeUntil } from 'rxjs';
+import { Observable, mergeMap, catchError, map, of, Subject, interval, takeUntil, switchMap, throwError } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Injectable({
@@ -90,6 +90,10 @@ export class ChatApiService {
     this.getUserList();
   }
 
+  getCompanion(id: number): Observable<any> {
+    return this.http.get(`${this.url}${id}/`, this.getHeaders());
+  }
+
   getUsers(): string[] {
     // let users: string[] = ["Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname", "Name Surname"]
     // let users: string[] = ["Sarah Johnson", "Alex Smith", "Олександр Іваненко"]
@@ -114,9 +118,11 @@ export class ChatApiService {
   }
 
   startConversation(username: string): Observable<{ conversationId: number, messages: Message[] }> {
+    console.log('Request data', { "username": username });
     return this.http.post(`${this.url}start/`, { "username": username }, this.getHeaders())
       .pipe(
         mergeMap((response: any) => {
+          console.log('response', response, username, response.conversation_id);
           const conversationId = response.conversation_id;
           console.log(conversationId);
           return this.getConversationMessages(conversationId)
@@ -130,7 +136,8 @@ export class ChatApiService {
         }),
         catchError(error => {
           console.error('Error starting conversation:', error);
-          return of({ conversationId: 0, messages: [] });
+          // return of({ conversationId: 0, messages: [] });
+          return throwError(error);
         })
       );
   }
