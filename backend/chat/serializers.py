@@ -5,6 +5,7 @@ from rest_framework import serializers
 
 class MessageSerializer(serializers.ModelSerializer):
     exclude = ('conversation_id',)
+    is_read = serializers.BooleanField(default=False)
 
     class Meta:
         model = Message
@@ -18,12 +19,15 @@ class ConversationListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'initiator', 'receiver', 'last_message']
+        fields = ['conversation_id', 'initiator', 'receiver', 'last_message']
+        extra_kwargs = {'conversation_id': {'source': 'id'}}
 
     def get_last_message(self, instance):
         message = instance.message_set.first()
         if message:
-            return MessageSerializer(instance=message).data
+            data = MessageSerializer(instance=message).data
+            data['is_read'] = message.is_read
+            return data
         return None
 
 
@@ -34,4 +38,5 @@ class ConversationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'initiator', 'receiver', 'message_set']
+        fields = ['conversation_id', 'initiator', 'receiver', 'message_set']
+        extra_kwargs = {'conversation_id': {'source': 'id'}}
