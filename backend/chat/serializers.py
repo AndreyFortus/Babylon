@@ -19,7 +19,8 @@ class ConversationListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'initiator', 'receiver', 'last_message']
+        fields = ['conversation_id', 'initiator', 'receiver', 'last_message']
+        extra_kwargs = {'conversation_id': {'source': 'id'}}
 
     def get_last_message(self, instance):
         message = instance.message_set.first()
@@ -37,4 +38,5 @@ class ConversationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'initiator', 'receiver', 'message_set']
+        fields = ['conversation_id', 'initiator', 'receiver', 'message_set']
+        extra_kwargs = {'conversation_id': {'source': 'id'}}
