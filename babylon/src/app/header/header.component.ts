@@ -9,9 +9,12 @@ import { GoogleAuthService } from '../google-auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  username: string = ''
-  photoUrl: string = ''
+  name: string = '';
+  username: string = '';
+  photoUrl: string = '';
   loggedIn: boolean = false;
+  showInfo: boolean = false;
+  level!: number
 
   constructor(private authService: SocialAuthService, private googleService: GoogleAuthService) { }
 
@@ -19,8 +22,14 @@ export class HeaderComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.googleService.setUser(user)
       this.googleService.sendToken()
+      this.googleService.level$.subscribe(level => {
+        this.level = level;
+      })
+      this.googleService.username$.subscribe(username => {
+        this.username = username;
+      });
       this.googleService.name$.subscribe(name => {
-        this.username = name;
+        this.name = name;
       });
       this.googleService.photoUrl$.subscribe(photoUrl => {
         this.photoUrl = photoUrl;
@@ -34,7 +43,8 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.googleService.signOut();
-    
+    this.showInfo = false;
+    window.location.reload();
   }
 
 }

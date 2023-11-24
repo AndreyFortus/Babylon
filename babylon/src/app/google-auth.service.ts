@@ -24,6 +24,7 @@ export class GoogleAuthService {
   private usernameSubject = new BehaviorSubject<string>('');
   private emailSubject = new BehaviorSubject<string>('');
   private levelSubject = new BehaviorSubject<number>(0);
+  private idSubject = new BehaviorSubject<number>(0);
 
   name$ = this.nameSubject.asObservable();
   photoUrl$ = this.photoUrlSubject.asObservable();
@@ -31,6 +32,7 @@ export class GoogleAuthService {
   username$ = this.usernameSubject.asObservable();
   email$ = this.emailSubject.asObservable();
   level$ = this.levelSubject.asObservable();
+  id$ = this.idSubject.asObservable();
 
   private user: SocialUser = new SocialUser
   private accessToken = ''
@@ -69,6 +71,10 @@ export class GoogleAuthService {
       });
     this.levelSubject.next(level);
     console.log('set level', this.level$);
+  }
+
+  setId(id: number) {
+    this.idSubject.next(id);
   }
 
   setLoggedIn(loggedIn: boolean) {
@@ -122,6 +128,7 @@ export class GoogleAuthService {
       this.setUsername(response.username);
       this.setEmail(response.email);
       this.setlevel(response.level);
+      this.setId(response.id);
       console.log(this.name$, this.photoUrl$, this.username$, this.email$, this.level$)
     });
   }

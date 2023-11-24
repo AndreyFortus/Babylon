@@ -1,0 +1,139 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.person {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 10%;
+    text-align: center;
+}
+
+.image {
+    display: flex;
+    max-height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    align-items: center;
+    margin: 1%;
+}
+
+.image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.human-info {
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.back-button {
+    border: none;
+    background: url("/assets/img/chat/left.png") no-repeat center center;
+    margin-left: 10px;
+}
+  
+
+.messages {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.message-input {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
+    height: 10%;
+}
+
+.message-input input {
+    width: 90%;
+    height: 100%;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.message-input input:focus {
+    outline: none;
+}
+
+.message-input button {
+    width: 10%;
+    height: 100%;
+    border: none;
+    background: url('/assets/img/chat/send.png') no-repeat center center, rgb(255, 255, 255);
+    background-size: 20px 20px;
+}
+
+.message-input button:active {
+    background: url('/assets/img/chat/send.png') no-repeat center center, rgb(222, 222, 222);
+    background-size: 20px 20px;
+}
+
+.initiator, .reciever {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .initiator {
+    margin-left: auto;
+    margin-right: 5;
+    word-wrap: break-word;
+    background: #e6cbae;
+  }
+  
+  .reciever {
+    margin-right: auto;
+    margin-left: 5;
+    word-wrap: break-word;
+  }
+  
+  .message-text, .timestamp {
+    margin: 5px;
+  }
+  
+  .timestamp {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 10px;
+    margin-right: 5px;
+    margin-left: auto;
+  }
+
+  .name-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.username {
+    font-size: 10px;
+    align-self: center;
+    color: rgb(20, 20, 20);
+}
+
+hr {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
