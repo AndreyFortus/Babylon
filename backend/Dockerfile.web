@@ -1,0 +1,18 @@
+# Используйте базовый образ Python
+FROM python:3.9
+
+# Создайте и перейдите в рабочую директорию /app
+WORKDIR /app
+
+# Скопируйте код вашего Django-приложения внутрь контейнера
+COPY . /app
+
+# Установите необходимые Python-зависимости
+RUN pip install -r requirements.txt
+
+# Определите переменные окружения
+ENV DJANGO_SETTINGS_MODULE=babylon_project.settings
+
+# Команда для запуска сервера приложения
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+

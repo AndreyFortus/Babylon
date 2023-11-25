@@ -14,9 +14,11 @@ from .tokenauth_middleware import TokenAuthMiddleware
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     'websocket':
-        TokenAuthMiddleware(
-            URLRouter(
-                websocket_urlpatterns
+        AllowedHostsOriginValidator(
+            TokenAuthMiddleware(
+                URLRouter(
+                    websocket_urlpatterns
+                )
             )
         )
 })
