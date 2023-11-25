@@ -1,0 +1,62 @@
+/* Responsive Styles */
+@media screen and (max-width: 767px) {
+
+  .card-container>*:not(.circle-link),
+  .terminal {
+    width: 100%;
+  }
+
+  .card:not(.highlight-card) {
+    height: 16px;
+    margin: 8px 0;
+  }
+
+  .card.highlight-card span {
+    margin-left: 72px;
+  }
+}
+
+.chat-box {
+  position: relative;
+  float: right;
+  width: 25%;
+  padding-top: 10px;
+  /* min-width: 30vw; */
+}
+
+.header {
+  height: 60px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.content-home {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, rgba(79,37,28,0.6) 0%, rgba(79,37,28,0.6) 100%), url('/assets/img/home-page/bg.jpg') no-repeat;
+  background-size: cover;
+}
+
+.content-lessons {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, rgba(79,37,28,0.6) 0%, rgba(79,37,28,0.6) 100%), url('/assets/img/lessons/lessons_bg.jpg') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.content-tweets {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, rgba(79,37,28,0.7) 0%, rgba(79,37,28,0.7) 100%), url('/assets/img/tweets/tweets_bg.jpg') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.main {
+  width: 80vw;
+  min-height: 100vh;
+}

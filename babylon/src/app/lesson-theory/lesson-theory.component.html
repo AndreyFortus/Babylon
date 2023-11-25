@@ -1,0 +1,25 @@
+<div class="container" *ngIf="level >= lessonId && loggedIn">
+    <div class="theory">
+        <h2>{{phrase}}</h2>
+        <hr>
+        <div class="theory-title" [innerHTML]="theoryTitle"></div>
+        <div class="theory-text" [innerHTML]="theoryText"></div>
+    </div>
+    <hr>
+    <div class="fight-section">
+        <h1>Time to fight!</h1>
+        <p>Now you need to defeat the monster with your new knowledge. Each correct answer will cause damage. Answer all questions correctly and win!</p>
+        <button class="start-button" [routerLink]="['/Lesson', lessonId, 'quizz']">
+            Start the battle
+        </button>
+    </div>
+</div>
+
+<div class="not-allowed-container" *ngIf="level < lessonId && loggedIn">
+    <h1>You haven't taken the previous lessons yet. Come back here later</h1>
+    <button [routerLink]="['/Lessons']" class="back-button">Back</button>
+</div>
+
+<div class="not-allowed-container" *ngIf="!loggedIn">
+    <h1>Log in first</h1>
+</div>

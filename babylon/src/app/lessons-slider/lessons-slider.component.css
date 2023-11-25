@@ -1,0 +1,122 @@
+.slider-container {
+    overflow: hidden;
+    width: 70vw;
+    padding-top: 10px;
+  }
+  
+  .slider {
+    display: flex;
+  }
+    
+    
+  .slide {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      grid-gap: 5px;
+      width: 200%;
+      height: 100%; 
+      transition: transform 1s ease-in-out;
+      transform: translateX(0);      
+  }
+  
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, p {
+    color: white;
+  }
+
+  .lesson {
+      box-sizing: border-box;
+      /* margin: 0;
+      padding: 0; */
+      text-align: center; 
+      font-family: 'Montserrat', sans-serif;
+  }
+
+  img {
+    width: 250px;
+  }
+  
+
+  .button-55 {
+    align-self: center;
+    background-color: #fff;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 1rem;
+    line-height: 23px;
+    outline: none;
+    padding: .75rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-55:hover {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+  }
+  
+  .button-55:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  }
+
+  .prev_button, .next_button {
+    background: url("/assets/img/lessons/right-arrow.png") no-repeat center;
+    background-size: 50%;
+    border-style: none;
+  }
+
+  .next_button:hover {
+    transform: translate(0px, 3px)
+  }
+
+  .prev_button:hover {
+    transform: translate(0px, 3px) rotate(180deg);
+  }
+
+  .prev_button {
+    transform: rotate(180deg);
+  }
+  
+  .start-lesson-button {
+    margin: 10px;
+    border: solid 1px;
+    width: 260px; 
+    height: 48px; 
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .navigation-buttons {
+    width: 70vw;
+    position: relative;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+  }
+  
+  #prevButton, #nextButton {
+    margin: 0 10px;
+    width: 100px; 
+    height: 48px;
+    font-family: 'Montserrat', sans-serif;
+  }

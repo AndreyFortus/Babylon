@@ -1,0 +1,101 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+li {
+    list-style-type: none;
+    padding-bottom: 5px;
+}
+
+.chat {
+    overflow-y: scroll;
+    max-height: 100vh;
+    padding-top: 10px;
+}
+
+input {
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: url('https://cdn-icons-png.flaticon.com/256/3917/3917132.png') no-repeat 5px;
+    background-size: 3vh;
+    padding-left: 50px;
+    height: 5vh;
+}
+
+input:hover {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url('https://cdn-icons-png.flaticon.com/256/3917/3917132.png') no-repeat 5px;
+    background-size: 3vh;
+}
+
+.search-bar {
+    float: right;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    /* max-height: 95vh; */
+}
+
+.conversation {
+    height: 95vh;
+}
+
+.search-result {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    height: 40px;
+    z-index: 999;
+}
+
+.search-result:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.start-chatting-text {
+    margin: auto 5px auto auto;
+}
+
+.search-text {
+    margin: auto auto auto 5px;
+}
+
+.red {
+    color: red;
+}
+
+ ::-webkit-scrollbar {
+    width: 10px;
+    overflow-y: scroll;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 4px #707070;
+    border-radius: 20px;
+    padding-left: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 9px;
+    background: rgb(79,37,28);
+    border-radius: 10px;
+}

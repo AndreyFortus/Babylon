@@ -1,0 +1,25 @@
+<div class="main">
+    <div class="person">
+        <button class="back-button" (click)="sendConversationState()"></button>
+        <div class="image">
+            <img src="{{avatar}}">
+        </div>
+        <div class="human-info">
+            <div class="name-container">
+                <p>{{user}}</p>
+                <p class="username">({{username}})</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div #messagesContainer class="messages">
+        <div  *ngFor="let message of messages" [ngClass]="{'initiator': message.sender===id, 'reciever': message.sender!=id}">
+            <p class="message-text">{{message.text}}</p>
+            <p class="timestamp">{{message.convertedTimestamp}}</p>
+        </div>
+    </div>
+    <div class="message-input">
+        <input type="text" placeholder="Type here" [(ngModel)]="message">
+        <button (click)="sendMessage()"></button>
+    </div>
+</div>
