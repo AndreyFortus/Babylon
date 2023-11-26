@@ -1,0 +1,45 @@
+name: Trigger auto deployment for container-app-nrjq7cvo7i72o
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ deployment ]
+    paths:
+    - 'Babylon/backend/**'
+    - '.github/workflows/container-app-nrjq7cvo7i72o-AutoDeployTrigger-6f6d4ca9-fb21-41b5-bfaa-c520041ec4d8.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CONTAINERAPPNRJQ7CVO7I72O_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CONTAINERAPPNRJQ7CVO7I72O_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CONTAINERAPPNRJQ7CVO7I72O_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}Babylon/backend 
+          registryUrl: containerregistrynrjq7cvo7i72o.azurecr.io
+          registryUsername: ${{ secrets.CONTAINERAPPNRJQ7CVO7I72O_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CONTAINERAPPNRJQ7CVO7I72O_REGISTRY_PASSWORD }}
+          containerAppName: container-app-nrjq7cvo7i72o
+          resourceGroup: babylonb149
+          imageToBuild: containerregistrynrjq7cvo7i72o.azurecr.io/container-app-nrjq7cvo7i72o:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+
