@@ -142,7 +142,6 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Angular host
-    "*"
 ]
 
 CHANNEL_LAYERS = {
