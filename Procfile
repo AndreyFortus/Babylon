@@ -1,1 +1,1 @@
-web: gunicorn backend/babylon_project.wsgi
+web: gunicorn backend.babylon_project.wsgi
