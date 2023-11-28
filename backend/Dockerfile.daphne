@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 ENV DJANGO_SETTINGS_MODULE=babylon_project.settings
 
 # Команда для запуска сервера Daphne
-CMD ["daphne", "babylon_project.asgi:application", "--port", "8443", "--bind", "0.0.0.0", "--verbosity", "2"]
+CMD ["daphne", "babylon_project.asgi:application", "--port", "8080", "--bind", "0.0.0.0", "--verbosity", "2"]

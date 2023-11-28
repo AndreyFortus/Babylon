@@ -12,5 +12,4 @@ urlpatterns = [
     path('auth/google/', GoogleAuthAPIView.as_view(), name='google_auth'),
     path('api/', include('tweets.urls')),
     path('api/conversations/', include('chat.urls')),
-    path('', TemplateView.as_view(template_name='index.html')),
 ]
