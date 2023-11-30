@@ -47,7 +47,8 @@ export class TweetsServiceService implements OnInit {
   }
 }
 
-class Tweet {
+
+export class Tweet {
   id: number;
   content: string;
   created_at: string;

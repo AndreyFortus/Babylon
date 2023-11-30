@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LessonTheoryComponent } from './lesson-theory.component';
+import { RouterLink } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 describe('LessonTheoryComponent', () => {
   let component: LessonTheoryComponent;
@@ -8,7 +12,12 @@ describe('LessonTheoryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LessonTheoryComponent]
+      imports: [RouterLink, RouterTestingModule, HttpClientModule],
+      declarations: [LessonTheoryComponent],
+      providers: [
+        { provide: 'SocialAuthServiceConfig', useValue: {} },
+        { provide: SocialAuthService, useValue: {} }
+      ]
     });
     fixture = TestBed.createComponent(LessonTheoryComponent);
     component = fixture.componentInstance;

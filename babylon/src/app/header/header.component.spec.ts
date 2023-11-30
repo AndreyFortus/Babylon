@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +10,12 @@ describe('HeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent]
+      imports: [HttpClientModule],
+      declarations: [HeaderComponent],
+      providers: [
+        { provide: 'SocialAuthServiceConfig', useValue: {} },
+        { provide: SocialAuthService, useValue: {} }
+      ]
     });
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

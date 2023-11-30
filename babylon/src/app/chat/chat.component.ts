@@ -12,7 +12,8 @@ export class ChatComponent implements OnInit {
   
   isLoggedIn: boolean = false;
   username!: string;
-  private ngUnsubscribe = new Subject();users: string[] = [];
+  private ngUnsubscribe = new Subject();
+  users: string[] = [];
   messages: string[] = [];
   avatars: string[] = [];
   usernames: string[] = [];

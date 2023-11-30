@@ -37,11 +37,16 @@ input {
     background-size: 3vh;
     padding-left: 50px;
     height: 5vh;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 input:hover {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url('https://cdn-icons-png.flaticon.com/256/3917/3917132.png') no-repeat 5px;
     background-size: 3vh;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .search-bar {
@@ -83,6 +88,11 @@ input:hover {
 
 .red {
     color: red;
+}
+
+.empty-users {
+    color: white;
+    margin-top: 10px;
 }
 
  ::-webkit-scrollbar {

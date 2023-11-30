@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LessonsPageComponent } from './lessons-page.component';
+import { LessonsPageContentComponent } from '../lessons-page-content/lessons-page-content.component';
+import { LessonsSliderComponent } from '../lessons-slider/lessons-slider.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterLink } from '@angular/router';
 
 describe('LessonsPageComponent', () => {
   let component: LessonsPageComponent;
@@ -8,7 +12,8 @@ describe('LessonsPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LessonsPageComponent]
+      imports: [RouterLink, RouterTestingModule],
+      declarations: [LessonsPageComponent, LessonsPageContentComponent, LessonsSliderComponent]
     });
     fixture = TestBed.createComponent(LessonsPageComponent);
     component = fixture.componentInstance;
