@@ -2,12 +2,18 @@ import random
 
 from rest_framework import generics, status
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Lesson, Monster, MultipleChoiceQuestion, FillBlankQuestion, Phrase
 from .serializers import LessonsSerializer, MultipleChoiceQuestionSerializer, MonsterSerializer, \
     FillBlankQuestionSerializer, PhraseSerializer
+
+def check_user_level(user, lesson):
+    level = user.userprofile.level if hasattr(user, 'userprofile') else 0
+    if level < lesson.pk:
+        raise PermissionDenied("Access denied")
 
 
 class LessonDetailView(generics.RetrieveAPIView):
@@ -20,10 +26,9 @@ class LessonDetailView(generics.RetrieveAPIView):
         lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
         user = self.request.user
-        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
-        if level >= lesson.pk:
-            return lesson
-        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
+        check_user_level(user, lesson)
+
+        return lesson
 
 
 class MultipleChoiceQuestionListView(generics.ListAPIView):
@@ -36,10 +41,9 @@ class MultipleChoiceQuestionListView(generics.ListAPIView):
         lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
         user = self.request.user
-        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
-        if level >= lesson.pk:
-            return MultipleChoiceQuestion.objects.filter(lesson=lesson_pk)
-        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
+        check_user_level(user, lesson)
+
+        return MultipleChoiceQuestion.objects.filter(lesson=lesson_pk)
 
 
 class FillBlankQuestionListView(generics.ListAPIView):
@@ -52,10 +56,9 @@ class FillBlankQuestionListView(generics.ListAPIView):
         lesson = Lesson.objects.filter(pk=lesson_pk).first()
 
         user = self.request.user
-        level = user.userprofile.level if hasattr(user, 'userprofile') else 0
-        if level >= lesson.pk:
-            return FillBlankQuestion.objects.filter(lesson=lesson_pk)
-        return Response({'error': 'Access denied'}, status=status.HTTP_403_FORBIDDEN)
+        check_user_level(user, lesson)
+
+        return FillBlankQuestion.objects.filter(lesson=lesson_pk)
 
 
 class MonsterListView(generics.ListAPIView):
