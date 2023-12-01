@@ -1,16 +1,16 @@
 import os
-from unittest.mock import patch
-
 import django
-from rest_framework import status
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'babylon_project.settings')
 django.setup()
 
+from unittest.mock import patch
 from django.test import TestCase
 from django.contrib.auth.models import User
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
+
 from .models import Lesson, MultipleChoiceQuestion, FillBlankQuestion
 
 
