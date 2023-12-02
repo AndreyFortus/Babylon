@@ -4,9 +4,17 @@ import { GoogleAuthService } from './google-auth.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
+class MockAuthService {
+  getAccessToken(providerId: string): Promise<string> {
+    // Mocked implementation, you can adjust this as needed
+    return Promise.resolve('mockedAccessToken');
+  }
+}
+
 describe('GoogleAuthService', () => {
   let service: GoogleAuthService;
   let httpTestingController: HttpTestingController
+  let authService: SocialAuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,11 +22,12 @@ describe('GoogleAuthService', () => {
       providers: [
         GoogleAuthService,
         { provide: 'SocialAuthServiceConfig', useValue: {} },
-        { provide: SocialAuthService, useValue: {} }
+        { provide: SocialAuthService, useClass: MockAuthService }
       ]
     });
     service = TestBed.inject(GoogleAuthService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    authService = TestBed.inject(SocialAuthService);
   });
 
   it('should be created', () => {
@@ -61,4 +70,11 @@ describe('GoogleAuthService', () => {
     })
 
   });
+
+  it('should send correct token to server', () => {
+    service.sendAccessTokenToServer('testToken');
+    const req = httpTestingController.expectOne('http://127.0.0.1:8000/auth/google/');
+    expect(req.request.body).toEqual({google_token: 'testToken'});
+  });
+
 });
