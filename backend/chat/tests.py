@@ -86,7 +86,7 @@ class GetConversationTestCase(APITestCase):
         self.assertIn('message', response.data)
 
 
-class ConversationsTestCase(APITestCase):
+class ConversationListTestCase(APITestCase):
     def setUp(self):
         self.user1 = User.objects.create_user(username='user1', password='testpass1')
         self.user2 = User.objects.create_user(username='user2', password='testpass2')
