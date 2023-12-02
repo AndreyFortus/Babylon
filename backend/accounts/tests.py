@@ -10,6 +10,32 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .models import UserProfile
 
+class UserDetailViewTest(APITestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.token = Token.objects.create(user=self.user)
+        self.api_authentication()
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+
+    def test_retrieve_user_detail(self):
+        url = '/api/get-user-info/'
+        response = self.client.get(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['username'], self.user.username)
+
+    def test_unauthenticated_access(self):
+        self.client.credentials()
+
+        url = '/api/get-user-info/'
+        response = self.client.get(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
 class LevelUpdateAPIViewTest(APITestCase):
 
     def setUp(self):
@@ -52,3 +78,5 @@ class LevelUpdateAPIViewTest(APITestCase):
         response = self.client.patch(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
