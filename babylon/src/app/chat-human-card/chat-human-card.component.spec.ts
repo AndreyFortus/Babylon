@@ -18,4 +18,11 @@ describe('ChatHumanCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set correct admin user', () => {
+    component.username = 'admin';
+    component.ngOnInit();
+    expect(component.user).toEqual('Administrator');
+    expect(component.avatar).toEqual('https://icons.veryicon.com/png/o/commerce-shopping/wangdianbao-icon-monochrome/administrators-6.png');
+  });
 });

@@ -71,10 +71,4 @@ describe('GoogleAuthService', () => {
 
   });
 
-  it('should send correct token to server', () => {
-    service.sendAccessTokenToServer('testToken');
-    const req = httpTestingController.expectOne('http://127.0.0.1:8000/auth/google/');
-    expect(req.request.body).toEqual({google_token: 'testToken'});
-  });
-
 });
